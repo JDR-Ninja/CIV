@@ -1,0 +1,19 @@
+﻿<Window x:Class="CIV.PleaseWait"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:control="clr-namespace:CIV"
+        Icon="/CIV;component/Icons/Application.ico"
+        Height="250" Width="350" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow" Background="{StaticResource NormalBackground}" Top="100" Left="100">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="MainFillGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0.0" Color="#ff333031" />
+            <GradientStop Offset="0.5" Color="Black" />
+            <GradientStop Offset="1.0" Color="#ff333031" />
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Border Background="{StaticResource MainFillGradient}">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6">
+            <control:LoadingAnimation HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </StackPanel>
+    </Border>
+</Window>

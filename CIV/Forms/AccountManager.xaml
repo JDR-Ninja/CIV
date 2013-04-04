@@ -1,0 +1,391 @@
+﻿<Window x:Class="CIV.AccountManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:civ="clr-namespace:CIV"
+        xmlns:civcommon="clr-namespace:CIV.Common;assembly=CIV.Common"
+        Icon="/CIV;component/Icons/Application.ico"
+        Height="430" Width="500" WindowStartupLocation="CenterOwner" SizeToContent="Height" ResizeMode="NoResize" Loaded="Window_Loaded" Background="{StaticResource NormalBackground}">
+    <Window.Resources>
+        <CollectionViewSource Source="{Binding ClientList}" x:Key="listingDataView" />
+        <CollectionViewSource Source="{Binding AccesstList}" x:Key="accessDataView" />
+        <CollectionViewSource Source="{Binding MailTemplateList}" x:Key="mailTemplateDataView" />
+        <civ:CIVResourceManager x:Key="CIVRes" />
+
+
+        <Style x:Key="Account" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <ContentPresenter.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock x:Name="Text" Text="{Binding Account.DisplayName}" Foreground="#ffeeeeee" />
+                                    </DataTemplate>
+                                </ContentPresenter.ContentTemplate>
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="CornerRadius" TargetName="Bd" Value="2"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="#ffb4841e"/>
+                                <Setter Property="Background" TargetName="Bd" Value="#FF5e4511"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                            <!-- Couleur quand pas le focus
+                                <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="Selector.IsSelectionActive" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                            </MultiTrigger>-->
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" Value="0.80" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="ApplicationCommandsHelp" />
+    </Window.CommandBindings>
+
+    <Grid Margin="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="180" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblAccountsList}" Style="{StaticResource GroupBoxHeader}" />
+
+        <ListBox Grid.Row="1" Name="lbClients" ItemsSource="{Binding Source={StaticResource listingDataView}}" Height="80" ItemContainerStyle="{StaticResource Account}" />
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Name="btnAdd" Click="btnAdd_Click">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_btnNew}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <!-- Si le compte n'est pas actif, il est valide -->
+                            <DataTrigger Binding="{Binding IsActive, Source={StaticResource listingDataView}}" Value="false">
+                                <Setter Property="IsEnabled" Value="true" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding Count, Source={StaticResource listingDataView}}" Value="0">
+                                <Setter Property="IsEnabled" Value="true" />
+                            </DataTrigger>
+
+                            <!-- Si le compte est actif, il doit être valide -->
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsActive, Source={StaticResource listingDataView}}" Value="true" />
+                                    <Condition Binding="{Binding ElementName=txtUsername, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtName, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=cbInternetAccess, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtQuotaQuantity, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtMailRecipients, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Name="btnDelete" Click="btnDelete_Click" IsEnabled="{Binding Count, Source={StaticResource listingDataView}, Converter={civ:GreaterThanConverter}, ConverterParameter=1}">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_btnDelete}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+        <CheckBox Grid.Row="3" Margin="0, 10, 0, 10" Content="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblAccountActive}" IsChecked="{Binding IsActive, Source={StaticResource listingDataView}}" HorizontalAlignment="Left" />
+
+        <TabControl Grid.Row="4">
+            <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblAccountsVideotronDetail}"
+                     IsEnabled="{Binding IsActive, Source={StaticResource listingDataView}}">
+                <Grid DataContext="{Binding  Source={StaticResource listingDataView}}" IsEnabled="{Binding IsActive, Source={StaticResource listingDataView}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblToken}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblUsername}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblNickname}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblInternetAccess}" />
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0,5">
+                        <TextBox Name="txtToken" Width="200" MaxLength="16" CharacterCasing="Upper" HorizontalAlignment="Left" Style="{StaticResource ValidationTextBox}" GotFocus="txtToken_GotFocus" LostFocus="txtToken_LostFocus">
+                            <TextBox.Text>
+                                <Binding Path="Account.Token" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <civ:NotNullValidationRule>
+                                            <civ:NotNullValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                            </civ:NotNullValidationRule.Message>
+                                        </civ:NotNullValidationRule>
+                                        <civ:RegexValidationRule Pattern="^[A-Z0-9]{16}$">
+                                            <civ:RegexValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_Token}" />
+                                            </civ:RegexValidationRule.Message>
+                                        </civ:RegexValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <Button Style="{StaticResource ButtonIcon}" Width="22" Height="22" Name="btnTokenInfo" Margin="10, 0, 0, 0" Click="btnTokenInfo_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_btnTokenInfoHint}">
+                            <Button.Content>
+                                <Image Source="/CIV;component/Images/TokenHelp.png" Stretch="None" />
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,5">
+                        <TextBox Name="txtUsername" Width="200" MaxLength="8" CharacterCasing="Upper" GotFocus="txtUsername_GotFocus" HorizontalAlignment="Left" Style="{StaticResource ValidationTextBox}" LostFocus="txtUsername_LostFocus">
+                            <TextBox.Text>
+                                <Binding Path="Account.Username" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <civ:NotNullValidationRule>
+                                            <civ:NotNullValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                            </civ:NotNullValidationRule.Message>
+                                        </civ:NotNullValidationRule>
+                                        <civ:RegexValidationRule Pattern="^vl[a-z]{5,}[a-z]$">
+                                            <civ:RegexValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_VL}" />
+                                            </civ:RegexValidationRule.Message>
+                                        </civ:RegexValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <Button Style="{StaticResource ButtonIcon}" Width="22" Height="22" Name="btnGetUsername" Margin="10, 0, 0, 0" Click="btnGetUsername_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_btnGetUsernameHint}">
+                            <Button.Content>
+                                <Image Source="/CIV;component/Images/Lightbulb.png" Stretch="None" />
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+
+                    <TextBox Name="txtName" Grid.Row="2" Grid.Column="1" Width="200" Margin="0,5" MaxLength="20" GotFocus="txtName_GotFocus" HorizontalAlignment="Left" Style="{StaticResource ValidationTextBox}" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_txtNameHint}">
+                        <TextBox.Text>
+                            <Binding Path="Account.Name" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <civ:NotNullValidationRule>
+                                        <civ:NotNullValidationRule.Message>
+                                            <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                        </civ:NotNullValidationRule.Message>
+                                    </civ:NotNullValidationRule>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+
+                    <ComboBox Grid.Row="3" Grid.Column="1" Name="cbInternetAccess" ItemsSource="{Binding Source={StaticResource accessDataView}}" SelectedValuePath="Id" VerticalAlignment="Center" Width="240" HorizontalAlignment="Left" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_cbInternetAccessHint}">
+                        <ComboBox.Resources>
+                            <civcommon:SIUnitTypes x:Key="Go">Go</civcommon:SIUnitTypes>
+                            <civcommon:UnitTypes x:Key="Mio">Mio</civcommon:UnitTypes>
+                        </ComboBox.Resources>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Padding="0" Margin="0" FontSize="12" Text="{Binding Name, Converter={civ:StringMultiLanguageConverter}}" Width="Auto" Style="{StaticResource DynamicData}" />
+
+                                    <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                                        <TextBlock FontSize="10" Padding="0" Margin="0" Text="{Binding DownloadSpeed, Converter={civ:UnitStringConverter}, ConverterParameter={StaticResource Mio}}" />
+                                        <TextBlock FontSize="10" Padding="0" Margin="0" Text="\s" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                                        <TextBlock FontSize="10" Padding="0" Margin="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblCapacity}"/>
+                                        <TextBlock FontSize="10" Padding="0" Margin="0" Text="{Binding TotalCombined, Converter={civ:SIUnitStringConverter}, ConverterParameter={StaticResource Go}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                        <ComboBox.SelectedValue>
+                            <Binding Path="Account.UserInternetAccess" UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.ValidationRules>
+                                    <civ:NotNullValidationRule>
+                                        <civ:NotNullValidationRule.Message>
+                                            <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                        </civ:NotNullValidationRule.Message>
+                                    </civ:NotNullValidationRule>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.SelectedValue>
+                    </ComboBox>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_gbAlertSettings}"
+                     IsEnabled="{Binding IsActive, Source={StaticResource listingDataView}}">
+                <Grid DataContext="{Binding Source={StaticResource listingDataView}}" IsEnabled="{Binding IsActive, Source={StaticResource listingDataView}}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_ActivateAlert}" IsChecked="{Binding AlertSettings.IsActive}" Unchecked="CheckBox_Unchecked" />
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" IsEnabled="{Binding AlertSettings.IsActive}">
+                        <RadioButton Name="rbAlertType" IsChecked="{Binding AlertSettings.AlertType, Converter={civ:EnumBooleanConverter}, ConverterParameter=Quota}" Content="" VerticalAlignment="Center" Click="rbAlertType_Click" Checked="rbAlertType_Checked" Unchecked="rbAlertType_Unchecked" Margin="0, 0, 6, 0" />
+                        <TextBox Margin="16,0,6,0" Name="txtQuotaQuantity" Width="60" IsEnabled="{Binding AlertSettings.AlertType, Converter={civ:EnumBooleanConverter}, ConverterParameter=Quota}" Style="{StaticResource ValidationTextBox}" civ:Masking.Mask="^\d+$">
+                            <TextBox.Text>
+                                <Binding Path="AlertSettings.QuotaQuantity" UpdateSourceTrigger="PropertyChanged" Converter="{civ:IntegerConverter}">
+                                    <Binding.ValidationRules>
+                                        <civ:NotNullValidationRule>
+                                            <civ:NotNullValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                            </civ:NotNullValidationRule.Message>
+                                        </civ:NotNullValidationRule>
+                                        <civ:IntegerValidation IsNotZero="True" IsPositive="True">
+                                            <civ:IntegerValidation.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_Integer}" />
+                                            </civ:IntegerValidation.Message>
+                                        </civ:IntegerValidation>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <ComboBox DisplayMemberPath="Value" ItemsSource="{civ:EnumValues civcommon:SIUnitTypes}" SelectedValuePath="Key" SelectedValue="{Binding Path=AlertSettings.QuotaUnit}" IsEnabled="{Binding AlertSettings.AlertType, Converter={civ:EnumBooleanConverter}, ConverterParameter=Quota}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" IsEnabled="{Binding AlertSettings.IsActive}">
+                        <RadioButton IsChecked="{Binding AlertSettings.AlertType, Converter={civ:EnumBooleanConverter}, ConverterParameter=Percentage}" VerticalAlignment="Center" Margin="0, 0, 6, 0" />
+                        <Slider Margin="16,0,0,0" Minimum="10" Maximum="100" Width="150" Value="{Binding  AlertSettings.PercentageQuantity}" TickPlacement="Both" IsMoveToPointEnabled="True" IsSnapToTickEnabled="True" VerticalAlignment="Center" TickFrequency="10" IsEnabled="{Binding AlertSettings.AlertType, Converter={civ:EnumBooleanConverter}, ConverterParameter=Percentage}" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding  AlertSettings.PercentageQuantity}" IsEnabled="{Binding AlertSettings.AlertType, Converter={civ:EnumBooleanConverter}, ConverterParameter=Percentage}"/>
+                        <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblAutorisezPercent}" IsEnabled="{Binding AlertSettings.AlertType, Converter={civ:EnumBooleanConverter}, ConverterParameter=Percentage}" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_gbMailNotification}"
+                     IsEnabled="{Binding IsActive, Source={StaticResource listingDataView}}">
+                <Grid DataContext="{Binding  Source={StaticResource listingDataView}}" IsEnabled="{Binding IsActive, Source={StaticResource listingDataView}}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox Name="chkSendMail" Grid.Row="0" Grid.Column="0" Content="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_ActivateSendMail}" IsChecked="{Binding SendMail}" Unchecked="CheckBox_State" Checked="CheckBox_State" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblSubject}" IsEnabled="{Binding SendMail}" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding  MailSubject}" Width="200" Margin="0,5" MaxLength="40" IsEnabled="{Binding SendMail}" HorizontalAlignment="Left" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblRecipients}" IsEnabled="{Binding SendMail}" />
+
+                    <TextBox Name="txtMailRecipients" Grid.Row="2" Grid.Column="1" Width="200" Margin="0,5" MaxLength="40" IsEnabled="{Binding SendMail}" HorizontalAlignment="Left" Style="{StaticResource ValidationTextBox}">
+                        <TextBox.Text>
+                            <Binding Path="MailRecipients" UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.ValidationRules>
+                                    <civ:NotNullValidationRule>
+                                        <civ:NotNullValidationRule.Message>
+                                            <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                        </civ:NotNullValidationRule.Message>
+                                    </civ:NotNullValidationRule>
+                                    <civ:EmailValidationRule IsMultiple="True">
+                                        <civ:EmailValidationRule.Message>
+                                            <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_Email}" />
+                                        </civ:EmailValidationRule.Message>
+                                    </civ:EmailValidationRule>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_lblMailTemplate}" IsEnabled="{Binding SendMail}" />
+                    <ComboBox Grid.Row="3" Grid.Column="1" Name="cbMailTemplate" ItemsSource="{Binding Source={StaticResource mailTemplateDataView}}" SelectedValue="{Binding Path=MailTemplate}" IsEnabled="{Binding SendMail}" VerticalAlignment="Center" Margin="0,5" Width="240" HorizontalAlignment="Left">
+
+                    </ComboBox>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_TabOther}"
+                     IsEnabled="{Binding IsActive, Source={StaticResource listingDataView}}">
+                <CheckBox Margin="0, 10, 0, 10" Content="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_SystrayDisplay}" IsChecked="{Binding SystrayDisplay, Source={StaticResource listingDataView}}" HorizontalAlignment="Left" />
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Name="btnOk" Click="btnOk_Click">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_btnOk}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <!-- Si le compte n'est pas actif, il est valide -->
+                            <DataTrigger Binding="{Binding IsActive, Source={StaticResource listingDataView}}" Value="false">
+                                <Setter Property="IsEnabled" Value="true" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding Count, Source={StaticResource listingDataView}}" Value="0">
+                                <Setter Property="IsEnabled" Value="true" />
+                            </DataTrigger>
+
+                            <!-- Si le compte est actif, il doit être valide -->
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsActive, Source={StaticResource listingDataView}}" Value="true" />
+                                    <Condition Binding="{Binding ElementName=txtToken, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtUsername, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtName, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=cbInternetAccess, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtQuotaQuantity, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtMailRecipients, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Name="btnCancel" Click="btnCancel_Click">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AccountManager_btnCancel}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

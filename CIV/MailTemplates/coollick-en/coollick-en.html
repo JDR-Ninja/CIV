@@ -1,0 +1,28 @@
+﻿<html>
+<head>
+<style>
+body {background-color:#353132;color:#8EA496;font-family:Tahoma;font-size:12px;}
+span.data {color:white;font-weight:bold;}
+table.bar {margin: 5px 0px;width:100%;border:1px solid #9C9B9C;border-spacing:0px;padding:0px;border-collapse:collapse;color:white;}
+table.bar td.download {width:[DOWNLOAD_PERCENT(round=0)]%;background-color:#dda710;}
+table.bar td.upload {width:[UPLOAD_PERCENT(round=0)]%;background-color:#088DB6;}
+table.bar td.remaining {width:100%;background-color:white;}
+</style>
+</head>
+<body>
+<img src="logo.jpg" />
+<p>Usage from <span class="data">[PERIOD_START(format=d MMMM)]</span> to <span class="data">[PERIOD_END(format=d MMMM yyyy)]</span><br />
+Days until the next period : <span class="data">[DAY_REMAINING]</span></p>
+<div style="text-align:right;">Up <span class="data">[UPLOAD]</span> / Down <span class="data">[DOWNLOAD]</span></div>
+<table class="bar"><tr>
+   <td class="download">[DOWNLOAD_PERCENT]%</td>
+   <td class="upload">[UPLOAD_PERCENT]%</td>
+   <td class="remaining"></td>
+</tr></table>
+<div style="text-align:right;">(<span class="data">[TOTAL_COMBINED_PERCENT]%</span>) <span class="data">[TOTAL_COMBINED] / [TOTAL_COMBINED_MAX]</span><br />
+<span class="data">[TOTAL_COMBINED_REMAINING]</span> remaining</div>
+<p>Overcharge : <span class="data">[OVERCHARGE]</span><br />
+Suggested daily usage : <span class="data">[SUGGEST_DAILY_USAGE]</span></p>
+<p>[GRAPH]</p>
+</body>
+</html>

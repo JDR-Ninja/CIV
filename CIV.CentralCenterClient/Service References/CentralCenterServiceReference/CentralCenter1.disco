@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://codexmundus.net/CentralCenter_v3_6_0/CentralCenter.asmx?wsdl" docRef="http://codexmundus.net/CentralCenter_v3_6_0/CentralCenter.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://codexmundus.net/CentralCenter_v3_6_0/CentralCenter.asmx" xmlns:q1="http://CodexMundus.net/CentralCenter_v3_6_0/" binding="q1:CentralCenterSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://codexmundus.net/CentralCenter_v3_6_0/CentralCenter.asmx" xmlns:q2="http://CodexMundus.net/CentralCenter_v3_6_0/" binding="q2:CentralCenterSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

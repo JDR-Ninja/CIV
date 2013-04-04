@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="CIV.ClientDashboard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:civ="clr-namespace:CIV"
+             xmlns:zed="clr-namespace:ZedGraph;assembly=ZedGraph"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" Width="440" Height="auto" Background="{StaticResource NormalBackground}">
+    <UserControl.Resources>
+        <civ:CIVResourceManager x:Key="CIVRes" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Border Name="Main" Grid.Column="0" Grid.Row="0" Padding="6">
+            <StackPanel Name="spMainContainer" Orientation="Vertical">
+
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Image Name="imgAlert" Source="/CIV;component/Images/Alert-Quota.png" Stretch="Uniform" Visibility="Collapsed" Height="30" Width="30" />
+                        <TextBlock Name="lblName" FontSize="16" FontWeight="Bold" Foreground="#ffdea812" Text="{Binding Path=Account.DisplayName}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button Style="{StaticResource ButtonIcon}" Name="btnUpdate" Click="btnUpdate_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboard_btnUpdate}">
+                            <Button.Content>
+                                <Image Source="/CIV;component/Images/Update.png" Stretch="Uniform" />
+                            </Button.Content>
+                        </Button>
+                        <Button Style="{StaticResource ButtonIcon}" Name="btnAdvancedStats" Click="btnAdvancedStats_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboard_btnAdvancedStats}">
+                            <Button.Content>
+                                <Image Source="/CIV;component/Images/Stats.png" Stretch="Uniform" />
+                            </Button.Content>
+                        </Button>
+                        <Button Style="{StaticResource ButtonIcon}" Name="btnSendMail" Click="btnSendMail_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboard_btnSendMail}">
+                            <Button.Content>
+                                <Image Source="/CIV;component/Images/Mail.png" Stretch="Uniform" />
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="1" Padding="6, 0, 6, 0" Background="{StaticResource NormalBackground}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                    <Image Name="imgInformation" Source="/Images/Exclamation.png"  HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Cursor="Hand" MouseLeftButtonUp="imgInformation_MouseLeftButtonUp" Visibility="Collapsed" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboard_imgInformation}" />
+                    <TextBlock Name="lblStatus" Style="{StaticResource DynamicData}" />
+            </StackPanel>
+                <Image Name="imgReport" Source="/Images/Report.png" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Cursor="Hand" MouseLeftButtonUp="imgReport_MouseLeftButtonUp" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboard_imgReport}" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

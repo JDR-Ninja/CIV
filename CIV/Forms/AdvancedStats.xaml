@@ -1,0 +1,373 @@
+﻿<Window x:Class="CIV.AdvancedStats"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:civ="clr-namespace:CIV"
+        xmlns:civcommon="clr-namespace:CIV.Common;assembly=CIV.Common"
+        xmlns:fctrl="clr-namespace:CIV.UserControls"
+        xmlns:zed="clr-namespace:ZedGraph;assembly=ZedGraph"
+        Icon="/CIV;component/Icons/Application.ico"
+        MinHeight="600" MinWidth="800" Height="600" Width="900" Background="{StaticResource NormalBackground}">
+    <Window.Resources>
+        <CollectionViewSource Source="{Binding BillPeriodList}" x:Key="billPeriodDataView" />
+        <civ:CIVResourceManager x:Key="CIVRes" />
+
+        <Style TargetType="TextBlock" x:Key="lblTitle" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="lblTitle2" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <SolidColorBrush x:Key="SelectedBorderBrush" Color="#ffb4841e" />
+        <SolidColorBrush x:Key="SelectedBorderBackground" Color="#FFeed7a7" />
+        
+        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="Border" Padding="2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            <!--<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />-->
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource SelectedBorderBrush}"/>
+                                <Setter Property="Background" TargetName="Border" Value="{StaticResource SelectedBorderBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" Value="0.80" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Column="0" Grid.Row="0" Background="{StaticResource NormalBackground}" Foreground="{StaticResource NormalEditForeground}">
+            <MenuItem Name="miClose" Header="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Close}" Click="miClose_Click" />
+        </Menu>
+        
+        <Border Grid.Column="0" Grid.Row="1" Padding="6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblUsagePeriod}" />
+                    <ComboBox Name="cbBillPeriod" Margin="10, 0, 10, 0" ItemsSource="{Binding Source={StaticResource billPeriodDataView}}" DisplayMemberPath="Text" SelectionChanged="cbBillPeriod_SelectionChanged" />
+                    <DatePicker Name="dpPeriodStart" SelectedDateChanged="DatePicker_DateChanged" />
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblAt}" Margin="10, 0, 10, 0" />
+                    <DatePicker Name="dpPeriodEnd" SelectedDateChanged="DatePicker_DateChanged" />
+                </StackPanel>
+
+                <TabControl Grid.Column="0" Grid.Row="1">
+                    <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGraphic}">
+                            <WindowsFormsHost Name="zedHost" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="3" Margin="0, 6, 0, 0" />
+                    </TabItem>
+                    <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblStatistic}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                        <Grid Grid.Column="0" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Name="txtPeriod" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Period}" Style="{StaticResource lblTitle}" />
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Upload}" Style="{StaticResource lblTitle2}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblAverage}" />
+                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=Stats.PeriodUploadAverage, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblLesser}" />
+                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Path=Stats.PeriodUploadLesser, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="3" Text="{Binding Path=Stats.PeriodUploadLesserDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGreater}" />
+                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Path=Stats.PeriodUploadGreater, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="4" Text="{Binding Path=Stats.PeriodUploadGreaterDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="5" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblTotal}" />
+                                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding Path=Stats.PeriodUploadTotal, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="6" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Download}" Margin="0, 6, 0, 0" Style="{StaticResource lblTitle2}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="7" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblAverage}" />
+                                <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding Path=Stats.PeriodDownloadAverage, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="8" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblLesser}" />
+                                <TextBlock Grid.Column="1" Grid.Row="8" Text="{Binding Path=Stats.PeriodDownloadLesser, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="8" Text="{Binding Path=Stats.PeriodDownloadLesserDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="9" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGreater}" />
+                                <TextBlock Grid.Column="1" Grid.Row="9" Text="{Binding Path=Stats.PeriodDownloadGreater, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="9" Text="{Binding Path=Stats.PeriodDownloadGreaterDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="10" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblTotal}" />
+                                <TextBlock Grid.Column="1" Grid.Row="10" Text="{Binding Path=Stats.PeriodDownloadTotal, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="11" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Combined}" Margin="0, 6, 0, 0" Style="{StaticResource lblTitle2}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="12" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblAverage}" />
+                                <TextBlock Grid.Column="1" Grid.Row="12" Text="{Binding Path=Stats.PeriodCombinedAverage, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="13" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblLesser}" />
+                                <TextBlock Grid.Column="1" Grid.Row="13" Text="{Binding Path=Stats.PeriodCombinedLesser, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="13" Text="{Binding Path=Stats.PeriodCombinedLesserDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="14" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGreater}" />
+                                <TextBlock Grid.Column="1" Grid.Row="14" Text="{Binding Path=Stats.PeriodCombinedGreater, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="14" Text="{Binding Path=Stats.PeriodCombinedGreaterDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="15" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblTotal}" />
+                                <TextBlock Grid.Column="1" Grid.Row="15" Text="{Binding Path=Stats.PeriodCombinedTotal, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                        </Grid>
+
+
+                        <Grid Grid.Column="1" Grid.Row="0" Margin="6, 0, 0, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Global}" Style="{StaticResource lblTitle}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Upload}" Style="{StaticResource lblTitle2}" />
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblLesser}" />
+                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=Stats.GlobalUploadLesser, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="2" Text="{Binding Path=Stats.GlobalUploadLesserDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGreater}" />
+                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Path=Stats.GlobalUploadGreater, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="3" Text="{Binding Path=Stats.GlobalUploadGreaterDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblTotal}" />
+                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Path=Stats.GlobalUploadTotal, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="5" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Download}" Margin="0, 6, 0, 0" Style="{StaticResource lblTitle2}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="6" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblLesser}" />
+                                <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding Path=Stats.GlobalDownloadLesser, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="6" Text="{Binding Path=Stats.GlobalDownloadLesserDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="7" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGreater}" />
+                                <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding Path=Stats.GlobalDownloadGreater, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="7" Text="{Binding Path=Stats.GlobalDownloadGreaterDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="8" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblTotal}" />
+                                <TextBlock Grid.Column="1" Grid.Row="8" Text="{Binding Path=Stats.GlobalDownloadTotal, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="9" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Combined}" HorizontalAlignment="Left" Margin="0, 6, 0, 0" Style="{StaticResource lblTitle2}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="10" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblLesser}" />
+                                <TextBlock Grid.Column="1" Grid.Row="10" Text="{Binding Path=Stats.GlobalCombinedLesser, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="10" Text="{Binding Path=Stats.GlobalCombinedLesserDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="11" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGreater}" />
+                                <TextBlock Grid.Column="1" Grid.Row="11" Text="{Binding Path=Stats.GlobalCombinedGreater, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="11" Text="{Binding Path=Stats.GlobalCombinedGreaterDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="12" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblTotal}" />
+                                <TextBlock Grid.Column="1" Grid.Row="12" Text="{Binding Path=Stats.GlobalCombinedTotal, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                        </Grid>
+
+                        <Grid Grid.Column="2" Grid.Row="0" Margin="6, 0, 0, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Monthly}" Style="{StaticResource lblTitle}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Upload}" Style="{StaticResource lblTitle2}" />
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblAverage}" />
+                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=Stats.MonthlyUploadAverage, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblLesser}" />
+                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Path=Stats.MonthlyUploadLesser, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="3" Text="{Binding Path=Stats.MonthlyUploadLesserDay, Converter={civ:DateConverter}, ConverterParameter='MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGreater}" />
+                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Path=Stats.MonthlyUploadGreater, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="4" Text="{Binding Path=Stats.MonthlyUploadGreaterDay, Converter={civ:DateConverter}, ConverterParameter='MMM yyyy'}" Style="{StaticResource DynamicData}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="5" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Download}" Margin="0, 6, 0, 0" Style="{StaticResource lblTitle2}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="6" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblAverage}" />
+                                <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding Path=Stats.MonthlyDownloadAverage, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="7" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblLesser}" />
+                                <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding Path=Stats.MonthlyDownloadLesser, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="7" Text="{Binding Path=Stats.MonthlyDownloadLesserDay, Converter={civ:DateConverter}, ConverterParameter='MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="8" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGreater}" />
+                                <TextBlock Grid.Column="1" Grid.Row="8" Text="{Binding Path=Stats.MonthlyDownloadGreater, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="8" Text="{Binding Path=Stats.MonthlyDownloadGreaterDay, Converter={civ:DateConverter}, ConverterParameter='MMM yyyy'}" Style="{StaticResource DynamicData}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="9" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Combined}" Margin="0, 6, 0, 0" Style="{StaticResource lblTitle2}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="10" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblAverage}" />
+                                <TextBlock Grid.Column="1" Grid.Row="10" Text="{Binding Path=Stats.MonthlyCombinedAverage, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="11" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblLesser}" />
+                                <TextBlock Grid.Column="1" Grid.Row="11" Text="{Binding Path=Stats.MonthlyCombinedLesser, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="11" Text="{Binding Path=Stats.MonthlyCombinedLesserDay, Converter={civ:DateConverter}, ConverterParameter='MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="12" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblGreater}" />
+                                <TextBlock Grid.Column="1" Grid.Row="12" Text="{Binding Path=Stats.MonthlyCombinedGreater, Converter={civ:SIUnitStringConverter}}" HorizontalAlignment="Right" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="2" Grid.Row="12" Text="{Binding Path=Stats.MonthlyCombinedGreaterDay, Converter={civ:DateConverter}, ConverterParameter='MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                        </Grid>
+
+                        <Grid Grid.Column="3" Grid.Row="0" Margin="6, 0, 0, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_General}" Style="{StaticResource lblTitle}" />
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblRecordedDay}" />
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Stats.RecordedDay}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblMoreOldDay}" />
+                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=Stats.MoreOldDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblMoreRecentDay}" />
+                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Path=Stats.MoreRecentDay, Converter={civ:DateConverter}, ConverterParameter='d MMM yyyy'}" Style="{StaticResource DynamicData}" />
+                                <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_lblRecordedMonth}" />
+                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Path=Stats.RecordedMonth}" Style="{StaticResource DynamicData}" />
+                        </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Détails">
+                        <fctrl:ListViewSortable Grid.Row="1" x:Name="lvItems"
+                                            ItemsSource="{Binding Path=Stats.Details}">
+                            <fctrl:ListViewSortable.View>
+                                <GridView>
+                                    <GridViewColumn Width="120">
+                                        <GridViewColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Details_Day}" HorizontalAlignment="Left" Foreground="Black" />
+                                            </DataTemplate>
+                                        </GridViewColumn.HeaderTemplate>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Day, Converter={civ:DateConverter}, ConverterParameter=date}" HorizontalAlignment="Left" Foreground="Black" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn>
+                                        <GridViewColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Details_Download}" HorizontalAlignment="Left" Foreground="Black" />
+                                            </DataTemplate>
+                                        </GridViewColumn.HeaderTemplate>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock x:Name="txtData" Width="120" Text="{Binding Path=Download, Converter={civ:SIUnitStringConverter}}" TextAlignment="Right" Foreground="Black" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn>
+                                        <GridViewColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Details_Upload}" HorizontalAlignment="Left" Foreground="Black" />
+                                            </DataTemplate>
+                                        </GridViewColumn.HeaderTemplate>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock x:Name="txtData" Width="120" Text="{Binding Path=Upload, Converter={civ:SIUnitStringConverter}}" TextAlignment="Right" Foreground="Black" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn>
+                                        <GridViewColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.AdvancedStats_Details_Total}" HorizontalAlignment="Left" Foreground="Black" />
+                                            </DataTemplate>
+                                        </GridViewColumn.HeaderTemplate>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock x:Name="txtData" Width="120" Text="{Binding Path=Total, Converter={civ:SIUnitStringConverter}}" TextAlignment="Right" Foreground="Black" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </fctrl:ListViewSortable.View>
+                        </fctrl:ListViewSortable>
+                    </TabItem>
+                </TabControl>
+          </Grid>
+        </Border>
+    </Grid>
+</Window>

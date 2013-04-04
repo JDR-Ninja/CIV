@@ -1,0 +1,79 @@
+﻿<Window x:Class="CIV.ClientDashboardEvents"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:civ="clr-namespace:CIV"
+        Height="400" Width="500" Background="{StaticResource NormalBackground}">
+    <Window.Resources>
+        <CollectionViewSource Source="{Binding Messages}" x:Key="listingDataView" />
+        <civ:CIVResourceManager x:Key="CIVRes" />
+
+        <Style x:Key="ColHeaderText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial" />
+            <!--<Setter Property="FontSize" Value="12" />-->
+            <Setter Property="Padding" Value="2" />
+        </Style>
+        
+        <DataTemplate x:Key="DateColHeader">
+            <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboardEvents_DateColHeader}" Style="{StaticResource ColHeaderText}" HorizontalAlignment="Left" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="TitleColHeader">
+            <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboardEvents_TitleColHeader}" Style="{StaticResource ColHeaderText}" HorizontalAlignment="Left" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="TextColHeader">
+            <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboardEvents_TextColHeader}" Style="{StaticResource ColHeaderText}" HorizontalAlignment="Left" />
+        </DataTemplate>
+
+        <Style x:Key="TextCellTemplate" TargetType="TextBlock">
+            <!--<Setter Property="FontFamily" Value="Arial" />-->
+            <!--<Setter Property="FontSize" Value="10" />-->
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+
+        <DataTemplate x:Key="DateCellTemplate">
+            <TextBlock Style="{StaticResource TextCellTemplate}" Text="{Binding Path=Created, Converter={civ:DateConverter}, ConverterParameter='yyyy-MM-dd HH:mm:ss'}" HorizontalAlignment="Left" />
+        </DataTemplate>
+        
+        <DataTemplate x:Key="TitleCellTemplate">
+            <TextBlock Style="{StaticResource TextCellTemplate}" Text="{Binding Path=Title}" HorizontalAlignment="Left" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="TextDataCellTemplate">
+            <TextBlock Style="{StaticResource TextCellTemplate}" Text="{Binding Path=Text}" HorizontalAlignment="Left" />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <ListView Name="lbItems" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Source={StaticResource listingDataView}}" IsTextSearchEnabled="False" SelectionMode="Single" IsEnabled="True">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <!--<Setter Property="HorizontalContentAlignment" Value="Stretch" />-->
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn CellTemplate="{StaticResource DateCellTemplate}" HeaderTemplate="{StaticResource DateColHeader}"/>
+                    <GridViewColumn CellTemplate="{StaticResource TitleCellTemplate}" HeaderTemplate="{StaticResource TitleColHeader}"/>
+                    <GridViewColumn CellTemplate="{StaticResource TextDataCellTemplate}" HeaderTemplate="{StaticResource TextColHeader}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Name="btnOk" Grid.Column="0" Grid.Row="1" Click="btnOk_Click">
+            <Button.Content>
+                <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboardEvents_btnOk}" Style="{StaticResource ButtonContent}" />
+            </Button.Content>
+        </Button>
+    </Grid>
+</Window>

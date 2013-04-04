@@ -1,0 +1,131 @@
+﻿<Window x:Class="CIV.Updater"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:civ="clr-namespace:CIV"
+        Icon="/CIV;component/Icons/Application.ico"
+        Height="380" Width="500" WindowStartupLocation="CenterScreen" Background="{StaticResource NormalBackground}">
+    <Window.Resources>
+        <civ:CIVResourceManager x:Key="CIVRes" />
+        <Style x:Key="pbDownloadStyle" TargetType="{x:Type ProgressBar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid Name="Grid" MinHeight="14" MinWidth="200">
+                            <Border Name="PART_Track" CornerRadius="0" Background="#FF37424D" BorderBrush="{StaticResource SolidBorderBrush}" BorderThickness="1" />
+                            <!--<Border Name="PART_Indicator" CornerRadius="2" Background="{StaticResource DarkBrush}" BorderBrush="{StaticResource NormalBorderBrush}" BorderThickness="1" HorizontalAlignment="Left" />-->
+                            <Border Name="PART_Indicator" CornerRadius="2" BorderBrush="{StaticResource NormalBackground}" BorderThickness="1" HorizontalAlignment="Left">
+                                <Border.Background>
+                            		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            			<GradientStop Color="#FF4D6D8C" Offset="0"/>
+                            			<GradientStop Color="#FF4D6D8C" Offset="1"/>
+                            			<GradientStop Color="#FF46729D" Offset="0.5"/>
+                            		</LinearGradientBrush>
+                            	</Border.Background>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        
+        <TabControl Grid.Column="0" Grid.Row="0">
+
+            <TabItem Name="tiAvailabled" Header="{Binding Source={StaticResource CIVRes},Path=Text.Updater_tabDescription}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*"  />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,20,0">
+                        <TextBlock Text="Version : " HorizontalAlignment="Center" />
+                        <TextBlock Name="lblVersion" HorizontalAlignment="Center" Style="{StaticResource DynamicData}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,20,0">
+                        <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.Updater_ReleaseDate}" HorizontalAlignment="Center" />
+                        <TextBlock Name="lblRelease" HorizontalAlignment="Center" Style="{StaticResource DynamicData}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.Updater_Size}" HorizontalAlignment="Center" />
+                        <TextBlock Name="lblSize" HorizontalAlignment="Center" Style="{StaticResource DynamicData}" />
+                    </StackPanel>
+                    <TextBox Name="txtHistory" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" FontFamily="Courier New" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="tiDestination" Header="{Binding Source={StaticResource CIVRes},Path=Text.Updater_tabDestination}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.Updater_lblSelectDestination}" VerticalAlignment="Bottom" />
+                    <TextBox Name="txtSavePath" Grid.Column="0" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Stretch" />
+                    <Button Name="btnSavePath" Grid.Column="0" Grid.Row="2" Content="{Binding Source={StaticResource CIVRes},Path=Text.Updater_btnSelect}" HorizontalAlignment="Right" Click="btnSavePath_Click" VerticalAlignment="Top" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="tiDownload" Header="{Binding Source={StaticResource CIVRes},Path=Text.Updater_tabDownload}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Label Name="lblDownload" Content="0 ko/ 0 ko" />
+                    </StackPanel>
+                    <ProgressBar Name="pbDownload" Grid.Column="0" Grid.Row="1" Margin="10, 0, 10, 0" Height="20" Maximum="100" Value="0" VerticalAlignment="Top" />
+                    <TextBlock Name="txtDwlError" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" Visibility="Collapsed" />
+                    </Grid>
+            </TabItem>
+
+            <TabItem Name="tiInstallation" Header="{Binding Source={StaticResource CIVRes},Path=Text.Updater_tabInstall}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.Updater_lblClickInstall}" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Name="btnPrior" IsEnabled="False" Click="btnPrior_Click">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.Updater_btnPrior}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+            </Button>
+            <Button Name="btnNext" Click="btnNext_Click">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.Updater_btnNext}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+            </Button>
+            <Button Name="btnInstall" Visibility="Collapsed" Click="btnInstall_Click" IsEnabled="False">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.Updater_btnInstall}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,41 @@
+﻿<Window x:Class="CIV.Backup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:civ="clr-namespace:CIV"
+        Icon="/CIV;component/Icons/Application.ico"
+        Height="auto" Width="400" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded" SizeToContent="Height" Background="{StaticResource NormalBackground}">
+    <Window.Resources>
+        <civ:CIVResourceManager x:Key="CIVRes" />
+    </Window.Resources>
+    <Border Padding="6">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="lblDestination" Grid.Column="0" Grid.Row="0" Text=" " />
+
+            <TextBlock x:Name="lblTotal" Text=" " Grid.Column="0" Grid.Row="1" Margin="0, 10, 0, 0" />
+            <ProgressBar x:Name="pbTotal" Grid.Column="0" Grid.Row="2" Maximum="100" Height="14" />
+
+            <TextBlock x:Name="lblCurrentFile" Text=" "  Grid.Column="0" Grid.Row="3" Margin="0, 10, 0, 0" />
+            <ProgressBar x:Name="pbCurrentFile" Grid.Column="0" Grid.Row="4" Maximum="100" Height="14" />
+
+            <Button x:Name="btnCancel" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" Margin="0, 10, 0, 0" Click="btnCancel_Click">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.Backup_btnCancel}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+            </Button>
+        </Grid>
+    </Border>
+</Window>

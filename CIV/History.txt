@@ -1,0 +1,139 @@
+﻿# = commentaire
++ = nouvelle fonctionnalité
+* = amélioration
+! = correctif
+- = fonctionnalité enlevée
+
+Consommation Internet Vidéotron 3.9
+Date : 2012-07-27
++: Ajout de l'onglet Détails dans les statistiques
++: Tenir la touche Ctrl en appuyant sur le bouton Mettre à jours force le rafraîchissement des données
+*: Changement mineur dans le système de log
+*: Les dll de SqlCE sont maintenant copié à la racine du répertoire d'installation
+
+
+Consommation Internet Vidéotron 3.8
+Date : 2011-08-10
+!: La valeur de Consommation suggérée quotidienne % était incorrecte
+*: La Consommation suggérée quotidienne ne prend plus en compte la consommation de la journée courante
++: Nouvelle information disponible, Consommation Théorique Combinée Quotidienne %
+!: Problème de droit d'accès au fichier de configuration
+*: Dans les options, l'onglet Affichage barre système est invisible en Windows XP
++: Nouvelle option pour afficher/cacher l'icône principale dans la barre système
++: Nouvelle option pour afficher une icône de la consommation d'un compte dans la barre système
+
+
+Consommation Internet Vidéotron 3.7
+Date : 2011-05-29
+!: Dépendament de l'environnement, il était impossible d'acquérir les données de consommation
+
+Consommation Internet Vidéotron 3.6
+Date : 2011-05-26
++: Utilisation de l'API officiel de Vidéotron
+!: Parfois la valeur d'une journée ne ce mettait pas à jour dans l'historique
+-: Retrait de la gestion des blocs de consommation (géré par l'API)
+!: Plantage de l'application au démarrage de Windows si chargé avant l'explorateur
+*: Diverses améliorations du visuel
++: Possibilité de configurer les éléments affichés dans l'écran principal
++: Possibilité de configurer les éléments affichés dans dans la barre des tâches
++: Un bouton pour réinitialiser les couleurs des barres de progression dans les options
+!: Si 2 comptes avaient le même nom utilisateur, ça plantait lors du chargement de l'écran principal
+*: Ajout des paramètres "width" et "height" pour la balise GRAPH
++: Menu -> Aide\Aide
++: La touche F1 ouvre une page internet vers le Wiki de CIV
+*: Amélioration des performances de démarrage
++: Lors de la désinstallation, possibilité de choisir d'effacer les fichiers de configuration
++: Les accèss internet sont mis à jour lors de l'installation
++: Nouvelle option pour sauvegarder la position de la fenêtre
+
+Consommation Internet Vidéotron 3.5
+Date : 2011-03-15
+!: Les termes Amont et Aval étaient inversé dans le graphique des Statistiques
+*: Les messages d'erreurs lors de l'analyse des données sont plus précis
+*: Les textes pour le forfait TGV 60 ont été ajoutés
+!: Certains calcul en début de période affichait infini comme valeur
+!: Si un instance de CIV était ouverte et qu'on tentait d'en ouvrir une autre, une exception était levée
+*: La consommation combinée est maintenant calculé à partir de la somme de l'Amont et de l'Aval
+*: Nouvelles données disponible pour les modèles de courriel
++: Un nouveau modèle (créé par CoolLick)
+*: La vérification de mise à jour est maintenant aux 20 jours (avant aux 7 jours)
+*: La vérification des accès internet est maintenant aux 20 jours (avant aux 2 jours)
+*: La vérification de mise à jour et des accès internet ne ce font plus aux démarrages
+*: Nouveau moteur de conversion des tags pour les modèles de courriel
+*: Possibilité de choisir les informations affichables dans la page principale
+!: Lorsque l'application était restauré l'historique des messages étaient perdu.
+
+Consommation Internet Vidéotron 3.4
+Date : 2010-12-18
+!: Compatibilité avec les changements du site de Vidéotron
+!: Parfois essayer d'ouvrir un lien vers le site de CIV provoquait un crash
+
+Consommation Internet Vidéotron 3.3
+Date : 2010-12-06
+!: Prise en charge des nouveaux changements sur la page de consommation de Vidéotron
+!: Dans le graphique de consommation, les textes Amont et Aval était mélangé en français
++: Nouvelle option, Fermer réduit l'application
+
+Consommation Internet Vidéotron 3.2
+Date : 2010-12-01
+*: Amélioration du système de chargement dynamique des dll (pouvaient occasionner des plantages)
+*: meilleure gestion des erreurs lors du téléchargement des données de Vidéotron
+!: Une erreur était déclenchée lorsque CIV voulait rafraichir automatiquement les données sans compte actif
+*: Les informations de l'exécutable et de l'installateur font désormais référence à CodexMundus.com
+*: Les erreurs SMTP ne sont plus loggué
+*: Le délai de connexion avec le service web est passé de 1 minute à 2 minutes
++: Ajout d'un bouton pour réenvoyer le courriel de notification à la demande
+*: Les textes des boutons Mise à jour et Statistiques sont maintenant des images
+!: Si le chargement des dll de SQL Server Compact 3.5 SP2 échoue, l'application ne plante plus et désactive les fonctions rattachées
++: Nouvelle information disponible, le pourcentage de la capacité journalière maximale moyenne
++: Nouvelle information disponible, la consommation estimée par rapport à la limite maximale
+!: Dans les statistiques, la date de fin de période est automatiquement ajustée si elle est inférieure à la date de début de période
++: Il y a maintenant 2 icônes pour signaler deux types d'alerte de consommation (défini par l'utilisateur et défini par l'accès internet)
+!: Formatage des nombres dans l'aperçu rapide utilise maintenant les options de l'utilisateur
++: Les icônes d'alertes sont maintenant présentes dans l'aperçu rapide
+!: Il pouvait arriver que l'application ne redémarre pas après un changement de langue
+!: Gestion des comptes, dans la zone d'alerte, le textbox de la quantité était toujours en erreur
+!: Un problème de rafraichissement créait une zone noire lors de certain cas, cela arrive maintenant moins souvent
+!: Le parseur html ne reconnaissait pas le bon utilisateur quand il y avait plusieurs comptes présent dans la source de la page web
+!: Lors de la connexion au site web, si une erreur NameResolutionFailure ou ConnectFailure survient, l'application va retenter jusqu'à 5 fois la connexion.
+!: Lorsque l'on pèse sur Annuler lors de la sélection du fichier de restauration, le message de confirmation n'apparaît plus
+
+Consommation Internet Vidéotron 3.1
+Date : 2010-11-04
++: Menu -> Aide\Mettre à jour les accès Internet.
++: Menu -> Aide\Vérifier les mises à jour
++: Menu -> Aide\Historique
+!: Traduction du message lorsque qu'il n'y a aucun compte de configuré
+*: La mise à jour des accès internet est dorénavant au 48h (anciennement au 7jours)
+*: Remaniement de la fenêtre À propos
+*: Modification interne de la BD (un nouveau champ pour le filtre sur les périodes et ajouts du numéro de version)
+!: Lorsque la période est finie, le temps passé est affiché. Au lieu d'une chaine vide.
+!: Meilleur affichage des informations de la consommation suggérée quand la période est terminée.
+*: Le délai d'attente après les données du site de Vidéotron a été augmenté à 20secondes (précédemment 10secondes)
+*: Lors d'un changement de langue, l'application demande si elle doit redémarrer
++: Menu -> Outils\Configuration\Sauvegarder
+   Permets de faire une sauvegarde des données de l'utilisateur dans une archive au format zip
++: Menu -> Outils\Configuration\Restaurer
+   Permets de restaurer une sauvegarde des données de l'utilisateur sauvegardé précédemment
+!: Le nom du compte est maintenant limité à 25 caractères
++: Possibilité d'afficher ou non le graphique dans l'écran principal
+*: Les informations de téléchargement et de téléversement sont maintenant sur la même ligne
++: Une icône apparaît maintenant à gauche du nom du compte quand il est en surcharge ou que l'alerte de consommation est atteinte
+*: L'icone d'alerte de consommation est maintenant aussi activée si le compte a des frais de surcharge
++: Nouveau tag %NOW% pour les modèles de courriel de notification
+*: La notification par courriel dans la gestion des comptes est désormais seulement accessible si elle est activée dans les options
+*: Dans la fenêtre des options, onglet courriel, la validation du serveur est corrigé
+*: La gestion des modèles de courriel à été revue
+!: Le compactage de la base de données ne plante plus
+!: Il faut maintenant aussi activer l'envoi de courriel dans les options pour activer la fonction de notification par courriel
+*: Lors de l'importation, les enregistrements qui n'ont pas de période s'enregistrent avec le mois qu'il représente
+*: Amélioration de la gestion des textes
+!: Les connexions au site internet de Vidéotron sont maintenant vraiment multithread
+*: Les erreurs de TimeOut lors du téléchargement des données ne génère plus de rapport d'erreur
+*: Les heures des messages s'affichent désormais selon les paramètres régionales de l'utilisateur
+*: Révision des couleurs de la fenêtre des événements
+
+Consommation Internet Vidéotron 3.0.1 Beta
+Date : 2010-09-19
++: Installation automatisé
+!: Divers correctifs majeur qui empêchait souvent l'application de démarrer

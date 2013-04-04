@@ -1,0 +1,1 @@
+"C:\Program Files\WinRAR\WinRar.exe" a -m5 -sfx -v360 -iiconc:Setup.ico civ301setup.exe Release\*

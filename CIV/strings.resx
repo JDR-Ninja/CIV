@@ -1,0 +1,1025 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="_Account" xml:space="preserve">
+    <value>Compte :</value>
+  </data>
+  <data name="ClientDashboard_btnAdvancedStats" xml:space="preserve">
+    <value>Statistiques</value>
+  </data>
+  <data name="Dashboard_Title" xml:space="preserve">
+    <value>Consommation Internet Vidéotron</value>
+  </data>
+  <data name="AdvancedStats_Combined" xml:space="preserve">
+    <value>COMBINÉ</value>
+  </data>
+  <data name="ClientDashboard_CombinedQuantity" xml:space="preserve">
+    <value>sur</value>
+  </data>
+  <data name="AdvancedStats_Download" xml:space="preserve">
+    <value>Aval</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>Gigaoctet</value>
+  </data>
+  <data name="ko" xml:space="preserve">
+    <value>Kilooctet</value>
+  </data>
+  <data name="Mo" xml:space="preserve">
+    <value>Mégaoctet</value>
+  </data>
+  <data name="ClientDashboard_Overcharge" xml:space="preserve">
+    <value>Frais de surchage :</value>
+  </data>
+  <data name="ClientDashboard_Remaining" xml:space="preserve">
+    <value>Restantes :</value>
+  </data>
+  <data name="ClientDashboard_btnUpdate" xml:space="preserve">
+    <value>Mettre à jour</value>
+  </data>
+  <data name="AdvancedStats_Upload" xml:space="preserve">
+    <value>Amont</value>
+  </data>
+  <data name="ClientDashboard_Usage" xml:space="preserve">
+    <value>Consommation :</value>
+  </data>
+  <data name="_DayRemaining" xml:space="preserve">
+    <value>Il reste {0} jours avant la prochaine période</value>
+  </data>
+  <data name="ClientDashboard_LastUpdate" xml:space="preserve">
+    <value>Dernière mise à jour :</value>
+  </data>
+  <data name="ClientDashboard_UsagePeriod" xml:space="preserve">
+    <value>Période de consommation du {0} au {1}</value>
+  </data>
+  <data name="AccountManager_btnCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="AccountManager_btnDelete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="AccountManager_btnNew" xml:space="preserve">
+    <value>Nouveau</value>
+  </data>
+  <data name="AccountManager_btnOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Dashboard_DB_ExportEnd" xml:space="preserve">
+    <value>Exportation terminé ({0}).</value>
+  </data>
+  <data name="Dashboard_DB_ImportEnd" xml:space="preserve">
+    <value>Importation terminé ({0} sur {1}).</value>
+  </data>
+  <data name="Dashboard_DB_RepairEnd" xml:space="preserve">
+    <value>Réparation terminée.</value>
+  </data>
+  <data name="Dashboard_DB_ResetConfirm" xml:space="preserve">
+    <value>Ceci va effacer toutes les historiques de consommation. Êtes-vous sur de vouloir continuer?</value>
+  </data>
+  <data name="Dashboard_DB_ResetEnd" xml:space="preserve">
+    <value>Réinitialisation terminée.</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="GeneralSettings_lblAutoRefresh" xml:space="preserve">
+    <value>Rafraichir les données automatiquement</value>
+  </data>
+  <data name="GeneralSettings_lblConfiguration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="GeneralSettings_tabEmail" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="GeneralSettings_tabGeneral" xml:space="preserve">
+    <value>Générales</value>
+  </data>
+  <data name="GeneralSettings_lblHost" xml:space="preserve">
+    <value>Serveur :</value>
+  </data>
+  <data name="GeneralSettings_lblHostSMTP" xml:space="preserve">
+    <value>Serveur SMTP</value>
+  </data>
+  <data name="GeneralSettings_lblInterface" xml:space="preserve">
+    <value>Affichage</value>
+  </data>
+  <data name="AccountManager_lblInternetAccess" xml:space="preserve">
+    <value>Accès internet :</value>
+  </data>
+  <data name="GeneralSettings_lblLanguages" xml:space="preserve">
+    <value>Langue :</value>
+  </data>
+  <data name="GeneralSettings_lblLaunchAtStartup" xml:space="preserve">
+    <value>Lancer au démarrage de Windows</value>
+  </data>
+  <data name="GeneralSettings_lblLaunchMinimized" xml:space="preserve">
+    <value>Lancer l'application en mode minimizé</value>
+  </data>
+  <data name="AccountManager_lblNickname" xml:space="preserve">
+    <value>Nom pour ce compte :</value>
+  </data>
+  <data name="GeneralSettings_lblPassword" xml:space="preserve">
+    <value>Mot de passe :</value>
+  </data>
+  <data name="GeneralSettings_lblPort" xml:space="preserve">
+    <value>Port :</value>
+  </data>
+  <data name="GeneralSettings_lblSender" xml:space="preserve">
+    <value>Votre nom :</value>
+  </data>
+  <data name="GeneralSettings_lblShowDataUnit" xml:space="preserve">
+    <value>Afficher les données en :</value>
+  </data>
+  <data name="AccountManager_lblSubject" xml:space="preserve">
+    <value>Sujet :</value>
+  </data>
+  <data name="GeneralSettings_lblSystem" xml:space="preserve">
+    <value>Système</value>
+  </data>
+  <data name="GeneralSettings_lblUser" xml:space="preserve">
+    <value>Utilisateur :</value>
+  </data>
+  <data name="AccountManager_lblUsername" xml:space="preserve">
+    <value>Utilisateur (VLxxxx) :</value>
+  </data>
+  <data name="Dashboard_miAbout" xml:space="preserve">
+    <value>À propos</value>
+  </data>
+  <data name="Dashboard_miAccountManager" xml:space="preserve">
+    <value>Gestion des comptes</value>
+  </data>
+  <data name="Dashboard_miConfiguration" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Dashboard_miDB" xml:space="preserve">
+    <value>Base de données</value>
+  </data>
+  <data name="Dashboard_miDBExport" xml:space="preserve">
+    <value>Exporter</value>
+  </data>
+  <data name="Dashboard_miDBImport" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="Dashboard_miDBRepair" xml:space="preserve">
+    <value>Réparer</value>
+  </data>
+  <data name="Dashboard_miDBReset" xml:space="preserve">
+    <value>Réinitialiser</value>
+  </data>
+  <data name="Dashboard_miExit" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
+  <data name="Dashboard_miFile" xml:space="preserve">
+    <value>Fichier</value>
+  </data>
+  <data name="Dashboard_miForum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="Dashboard_miHelp" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="Dashboard_miTools" xml:space="preserve">
+    <value>Outils</value>
+  </data>
+  <data name="Dashboard_miWebsite" xml:space="preserve">
+    <value>Site internet de CIV</value>
+  </data>
+  <data name="ClientDashboard_sbDownloadData" xml:space="preserve">
+    <value>Téléchargement des données courantes...</value>
+  </data>
+  <data name="ClientDashboard_sbDownloadHistory" xml:space="preserve">
+    <value>Téléchargement de l'historique...</value>
+  </data>
+  <data name="Dashboard_miDBCompact" xml:space="preserve">
+    <value>Compacter</value>
+  </data>
+  <data name="Dashboard_DB_CompactEnd" xml:space="preserve">
+    <value>Compactage terminé.</value>
+  </data>
+  <data name="GeneralSettings_Confirm" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="Dashboard_DB_CompactQuery" xml:space="preserve">
+    <value>Cette action va effacer l'historique des comptes qui n'existe plus et compacter la base de données. Êtes-vous sûr de vouloir continuer?</value>
+  </data>
+  <data name="ClientDashboardEvents_Title" xml:space="preserve">
+    <value>Événements pour {0}</value>
+  </data>
+  <data name="ClientDashboardEvents_DateColHeader" xml:space="preserve">
+    <value>Dates</value>
+  </data>
+  <data name="ClientDashboard_imgInformation" xml:space="preserve">
+    <value>Plus de détails...</value>
+  </data>
+  <data name="ClientDashboard_imgReport" xml:space="preserve">
+    <value>Voir tous les événements</value>
+  </data>
+  <data name="ClientDashboardEvents_TextColHeader" xml:space="preserve">
+    <value>Détails</value>
+  </data>
+  <data name="ClientDashboardEvents_TitleColHeader" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="AccountManager_lblRecipients" xml:space="preserve">
+    <value>Destinataire(s) :</value>
+  </data>
+  <data name="ClientDashboard_LastUpdateWithDelay" xml:space="preserve">
+    <value>Dernière mise à jour : {0} (il y a {1} jours)</value>
+  </data>
+  <data name="ClientDashboard_lblSuggestCombined" xml:space="preserve">
+    <value>Consommation suggérée quotidienne :</value>
+  </data>
+  <data name="AccountManager_gbAlertSettings" xml:space="preserve">
+    <value>Alerte de consommation</value>
+  </data>
+  <data name="AccountManager_gbMailNotification" xml:space="preserve">
+    <value>Notification par courriel</value>
+  </data>
+  <data name="GeneralSettings_lblMail" xml:space="preserve">
+    <value>Courriel :</value>
+  </data>
+  <data name="AccountManager_Title" xml:space="preserve">
+    <value>Gestion des comptes</value>
+  </data>
+  <data name="ClientDashboard_AuthentificationFailedException" xml:space="preserve">
+    <value>Le téléchargement des données a échoué</value>
+  </data>
+  <data name="ClientDashboard_DecodeFailedException" xml:space="preserve">
+    <value>Erreur lors de l'analyse des données</value>
+  </data>
+  <data name="AccountManager_lblAccountActive" xml:space="preserve">
+    <value>Compte actif</value>
+  </data>
+  <data name="AccountManager_lblAccountsList" xml:space="preserve">
+    <value>Listes de comptes</value>
+  </data>
+  <data name="AccountManager_lblAccountsVideotronDetail" xml:space="preserve">
+    <value>Détails du compte Vidéotron</value>
+  </data>
+  <data name="GeneralSettings_lblAutomaticSendReport" xml:space="preserve">
+    <value>Envoi automatique des rapports d'erreurs</value>
+  </data>
+  <data name="AccountManager_lblAutorisezPercent" xml:space="preserve">
+    <value>% du total autorisé</value>
+  </data>
+  <data name="Validation_Email" xml:space="preserve">
+    <value>Adresse(s) incorrect</value>
+  </data>
+  <data name="Validation_Integer" xml:space="preserve">
+    <value>La valeur doit être numérique</value>
+  </data>
+  <data name="Validation_NotNull" xml:space="preserve">
+    <value>Données requises</value>
+  </data>
+  <data name="Validation_VL" xml:space="preserve">
+    <value>Le nom d'utilisateur doit commencer par VL et avoir 8 caractères</value>
+  </data>
+  <data name="AccountManager_lblMailTemplate" xml:space="preserve">
+    <value>Message :</value>
+  </data>
+  <data name="ClientDashboard_MailSended" xml:space="preserve">
+    <value>Courriel envoyé</value>
+  </data>
+  <data name="ClientDashboard_MailSending" xml:space="preserve">
+    <value>Envoi du courriel en cours</value>
+  </data>
+  <data name="Validation_Url" xml:space="preserve">
+    <value>Le format est incorrect</value>
+  </data>
+  <data name="AdvancedStats_Title" xml:space="preserve">
+    <value>Statistiques de consommation internet</value>
+  </data>
+  <data name="AdvancedStats_BillingPeriod" xml:space="preserve">
+    <value>{0} au {1}</value>
+  </data>
+  <data name="IA_BI" xml:space="preserve">
+    <value>Internet Intermédiaire</value>
+  </data>
+  <data name="IA_EHSI" xml:space="preserve">
+    <value>Internet haute vitesse extrême</value>
+  </data>
+  <data name="IA_EPHSI" xml:space="preserve">
+    <value>Internet haute vitesse extrême plus</value>
+  </data>
+  <data name="IA_HSI" xml:space="preserve">
+    <value>Internet haute vitesse</value>
+  </data>
+  <data name="IA_USI30" xml:space="preserve">
+    <value>Internet TGV 30</value>
+  </data>
+  <data name="IA_USI50" xml:space="preserve">
+    <value>Internet TGV 50</value>
+  </data>
+  <data name="AdvancedStats_lblAt" xml:space="preserve">
+    <value>au</value>
+  </data>
+  <data name="AdvancedStats_General" xml:space="preserve">
+    <value>Générales</value>
+  </data>
+  <data name="AdvancedStats_Global" xml:space="preserve">
+    <value>Globale</value>
+  </data>
+  <data name="AdvancedStats_lblAverage" xml:space="preserve">
+    <value>Moyenne :</value>
+  </data>
+  <data name="AdvancedStats_lblGreater" xml:space="preserve">
+    <value>Plus grand :</value>
+  </data>
+  <data name="AdvancedStats_lblLesser" xml:space="preserve">
+    <value>Plus petit :</value>
+  </data>
+  <data name="AdvancedStats_lblMoreOldDay" xml:space="preserve">
+    <value>Jours le plus vieux :</value>
+  </data>
+  <data name="AdvancedStats_lblMoreRecentDay" xml:space="preserve">
+    <value>Jours le plus récent :</value>
+  </data>
+  <data name="AdvancedStats_lblRecordedDay" xml:space="preserve">
+    <value>Jours enregistrés :</value>
+  </data>
+  <data name="AdvancedStats_lblRecordedMonth" xml:space="preserve">
+    <value>Mois enregistrés :</value>
+  </data>
+  <data name="AdvancedStats_lblTotal" xml:space="preserve">
+    <value>Total :</value>
+  </data>
+  <data name="AdvancedStats_Monthly" xml:space="preserve">
+    <value>Mensuel</value>
+  </data>
+  <data name="AdvancedStats_Period" xml:space="preserve">
+    <value>Période</value>
+  </data>
+  <data name="GeneralSettings_LangChanged" xml:space="preserve">
+    <value>Pour que le changement de langue soit pris en compte l'application doit redémarrer. Voulez-vous le faire maintenant?</value>
+  </data>
+  <data name="GeneralSettings_LaunchAtStartupUnauthorized" xml:space="preserve">
+    <value>Vous n'avez pas les droits requis pour lancer l'application au démarrage du système.</value>
+  </data>
+  <data name="AdvancedStats_lblGraphic" xml:space="preserve">
+    <value>Graphique</value>
+  </data>
+  <data name="AdvancedStats_lblStatistic" xml:space="preserve">
+    <value>Statistiques</value>
+  </data>
+  <data name="ClientDashboard_lblDayRemaining" xml:space="preserve">
+    <value>Temps restant avant la prochaine période :</value>
+  </data>
+  <data name="AdvancedStats_lblUsagePeriod" xml:space="preserve">
+    <value>Période de consommation :</value>
+  </data>
+  <data name="GeneralSettings_Title" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="GeneralSettings_lblColors" xml:space="preserve">
+    <value>Couleurs</value>
+  </data>
+  <data name="GeneralSettings_tabDisplay" xml:space="preserve">
+    <value>Affichage principal</value>
+  </data>
+  <data name="GeneralSettings_lblCombined" xml:space="preserve">
+    <value>Combiné</value>
+  </data>
+  <data name="GeneralSettings_lblDownload" xml:space="preserve">
+    <value>Amont</value>
+  </data>
+  <data name="GeneralSettings_lblUpload" xml:space="preserve">
+    <value>Aval</value>
+  </data>
+  <data name="IA_USI15" xml:space="preserve">
+    <value>Internet TGV 15</value>
+  </data>
+  <data name="GeneralSettings_lblSmtpActive" xml:space="preserve">
+    <value>Activer l'envoi de courriel</value>
+  </data>
+  <data name="ClientDashboard_Day" xml:space="preserve">
+    <value>jour</value>
+  </data>
+  <data name="ClientDashboard_Days" xml:space="preserve">
+    <value>jours</value>
+  </data>
+  <data name="ClientDashboard_Hour" xml:space="preserve">
+    <value>heure</value>
+  </data>
+  <data name="ClientDashboard_Hours" xml:space="preserve">
+    <value>heures</value>
+  </data>
+  <data name="ClientDashboard_Minute" xml:space="preserve">
+    <value>minute</value>
+  </data>
+  <data name="ClientDashboard_Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="AboutInternetAccess" xml:space="preserve">
+    <value>Accès internet</value>
+  </data>
+  <data name="ClientDashboard_WebResponseException" xml:space="preserve">
+    <value>Incapable d'acquérir les données de consommation actuellement</value>
+  </data>
+  <data name="Gio" xml:space="preserve">
+    <value>Gibioctet</value>
+  </data>
+  <data name="kio" xml:space="preserve">
+    <value>Kibioctet</value>
+  </data>
+  <data name="Mio" xml:space="preserve">
+    <value>Mébioctet</value>
+  </data>
+  <data name="Dashboard_miAppCheckUpdate" xml:space="preserve">
+    <value>Vérifier les mises à jour</value>
+  </data>
+  <data name="Dashboard_miHistory" xml:space="preserve">
+    <value>Historique</value>
+  </data>
+  <data name="Dashboard_miInternetAccessUpdate" xml:space="preserve">
+    <value>Mettre à jour les accès internets</value>
+  </data>
+  <data name="Dashboard_miSendAnomaly" xml:space="preserve">
+    <value>Envoyer un rapport d'anomalie</value>
+  </data>
+  <data name="Dashboard_ZeroAccountPrompt" xml:space="preserve">
+    <value>Il n'y a aucun compte de configuré, voulez-vous le faire maintenant?</value>
+  </data>
+  <data name="GeneralSettings_lblAppAutoUpdate" xml:space="preserve">
+    <value>Vérifier les mises à jour automatiquement</value>
+  </data>
+  <data name="Dashboard_UpdateNotAvailable" xml:space="preserve">
+    <value>Aucune mise à jour disponible.</value>
+  </data>
+  <data name="Dashboard_miNewVersionAvailable" xml:space="preserve">
+    <value>Nouvelle version disponible</value>
+  </data>
+  <data name="Dashboard_miCreateBackup" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="Dashboard_miRestoreBackup" xml:space="preserve">
+    <value>Restaurer</value>
+  </data>
+  <data name="Dashboard_miToolConfiguration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="About_Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="About_Components" xml:space="preserve">
+    <value>Composants</value>
+  </data>
+  <data name="About_WebService" xml:space="preserve">
+    <value>Service web :</value>
+  </data>
+  <data name="AdvancedStats_Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="Backup_btnCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Backup_lblTotal" xml:space="preserve">
+    <value>Fichier {0}/{1}, total: {2}</value>
+  </data>
+  <data name="Backup_SelectSaveFile" xml:space="preserve">
+    <value>Sélectionner l'endroit de la sauvegarde</value>
+  </data>
+  <data name="Backup_Title" xml:space="preserve">
+    <value>Sauvegarde en cours...</value>
+  </data>
+  <data name="ClientDashboardEvents_btnOk" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="ClientDashboard_At" xml:space="preserve">
+    <value>au</value>
+  </data>
+  <data name="ClientDashboard_CombinedTitle" xml:space="preserve">
+    <value>Combiné</value>
+  </data>
+  <data name="ClientDashboard_DownloadTitle" xml:space="preserve">
+    <value>Aval</value>
+  </data>
+  <data name="ClientDashboard_lblUsagePeriod" xml:space="preserve">
+    <value>Période de consommation :</value>
+  </data>
+  <data name="ClientDashboard_StaticNotAvailable" xml:space="preserve">
+    <value>Aucune statistique disponible pour ce compte.</value>
+  </data>
+  <data name="ClientDashboard_UploadTitle" xml:space="preserve">
+    <value>Amont</value>
+  </data>
+  <data name="Dashboard_BackupEnd" xml:space="preserve">
+    <value>Sauvegarde terminée.</value>
+  </data>
+  <data name="Dashboard_CheckNewUpdate" xml:space="preserve">
+    <value>Vérification en cours...</value>
+  </data>
+  <data name="Dashboard_Confirm" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="Dashboard_Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Dashboard_RestoreBackupEnd" xml:space="preserve">
+    <value>Restauration terminé. L'application doit redémarrer pour prendre en compte les changements</value>
+  </data>
+  <data name="GeneralSettings_btnCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="GeneralSettings_btnOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="GeneralSettings_lblMainScreen" xml:space="preserve">
+    <value>Écran principal</value>
+  </data>
+  <data name="GraphFactory_Download" xml:space="preserve">
+    <value>Aval</value>
+  </data>
+  <data name="GraphFactory_Upload" xml:space="preserve">
+    <value>Amont</value>
+  </data>
+  <data name="Updater_BackupMessage" xml:space="preserve">
+    <value>Voulez-vous effectuer une sauvegarde avant d'installer la nouvelle version?</value>
+  </data>
+  <data name="Updater_BackupTitle" xml:space="preserve">
+    <value>Sauvegarde</value>
+  </data>
+  <data name="Updater_btnInstall" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="Updater_btnNext" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Updater_btnPrior" xml:space="preserve">
+    <value>Précèdent</value>
+  </data>
+  <data name="Updater_btnSelect" xml:space="preserve">
+    <value>Parcourir</value>
+  </data>
+  <data name="Updater_CorruptFile" xml:space="preserve">
+    <value>Le fichier téléchargé est corrompu.</value>
+  </data>
+  <data name="Updater_DownloadCancel" xml:space="preserve">
+    <value>Téléchargement annulé</value>
+  </data>
+  <data name="Updater_lblClickInstall" xml:space="preserve">
+    <value>Cliquer sur Installer pour lancer la mise à jour.</value>
+  </data>
+  <data name="Updater_lblSelectDestination" xml:space="preserve">
+    <value>Sélectionner l'emplacement où sauvegarder la mise à jour</value>
+  </data>
+  <data name="Updater_ReleaseDate" xml:space="preserve">
+    <value>Date de sortie :</value>
+  </data>
+  <data name="Updater_Size" xml:space="preserve">
+    <value>Taille :</value>
+  </data>
+  <data name="Updater_tabDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Updater_tabDestination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="Updater_tabDownload" xml:space="preserve">
+    <value>Téléchargement</value>
+  </data>
+  <data name="Updater_tabInstall" xml:space="preserve">
+    <value>Installation</value>
+  </data>
+  <data name="Updater_Title" xml:space="preserve">
+    <value>Une nouvelle version est disponible</value>
+  </data>
+  <data name="QuickStatsClient_CombinedQuantity" xml:space="preserve">
+    <value>{0} sur {1}</value>
+  </data>
+  <data name="QuickStatsClient_LastUpdate" xml:space="preserve">
+    <value>Dernière mise à jour :</value>
+  </data>
+  <data name="QuickStatsClient_Remaining" xml:space="preserve">
+    <value>Restantes :</value>
+  </data>
+  <data name="QuickStatsClient_Usage" xml:space="preserve">
+    <value>Consommation :</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>À propos</value>
+  </data>
+  <data name="AccountManager_lblCapacity" xml:space="preserve">
+    <value>Capacité :</value>
+  </data>
+  <data name="Dashboard_WebNotCompatible" xml:space="preserve">
+    <value>Impossible de communiquer avec le service web de CIV. La version installée de CIV n'est plus supportée.</value>
+  </data>
+  <data name="Dashboard_BackupCancel" xml:space="preserve">
+    <value>Sauvegarde annulée.</value>
+  </data>
+  <data name="ClientDashboard_TimeAgo" xml:space="preserve">
+    <value>Il y a {0}</value>
+  </data>
+  <data name="ClientDashboard_btnSendMail" xml:space="preserve">
+    <value>Envoyer le courriel de notification</value>
+  </data>
+  <data name="ClientDashboard_AtThisRate" xml:space="preserve">
+    <value>À ce rythme, vous consommerez</value>
+  </data>
+  <data name="ClientDashboard_MaxAverageUsage" xml:space="preserve">
+    <value>de votre capacité quotidienne moyenne théorique.</value>
+  </data>
+  <data name="ClientDashboard_OfYourLimit" xml:space="preserve">
+    <value>de votre limite.</value>
+  </data>
+  <data name="ClientDashboard_Over" xml:space="preserve">
+    <value>au dessus</value>
+  </data>
+  <data name="ClientDashboard_Under" xml:space="preserve">
+    <value>en dessous</value>
+  </data>
+  <data name="ClientDashboard_YouConsumption" xml:space="preserve">
+    <value>Vous consommez</value>
+  </data>
+  <data name="ClientDashboard_DBNotAvailable" xml:space="preserve">
+    <value>Les fonctionnalités utilisant la base de données sont désactivées.</value>
+  </data>
+  <data name="ClientDashboard_dllNotFoundException" xml:space="preserve">
+    <value>CIV a détecté un problème avec la base de donnée. Pour corriger ce problème vous devez installer SQL Server Compact 3.5 Service Pack 2. Voulez-vous le faire maintenant?</value>
+  </data>
+  <data name="ClientDashboard_Requirement" xml:space="preserve">
+    <value>Pré-requis</value>
+  </data>
+  <data name="GeneralSettings_lblMinimizeToTrayOnClose" xml:space="preserve">
+    <value>Fermer réduit dans la barre des tâches</value>
+  </data>
+  <data name="DecodeBillPeriods" xml:space="preserve">
+    <value>Impossible de trouver l'information suivante : la période de consommation</value>
+  </data>
+  <data name="DecodeDownload" xml:space="preserve">
+    <value>Impossible de trouver l'information suivante : Consommation en aval</value>
+  </data>
+  <data name="DecodeHistory" xml:space="preserve">
+    <value>Impossible de trouver l'information suivante : l'historique de consommation</value>
+  </data>
+  <data name="DecodeShowPeriods" xml:space="preserve">
+    <value>Impossible de trouver l'information suivante : les périodes disponibles</value>
+  </data>
+  <data name="DecodeTotalCombined" xml:space="preserve">
+    <value>Impossible de trouver l'information suivante : Consommation combiné</value>
+  </data>
+  <data name="DecodeUnexpected" xml:space="preserve">
+    <value>Un problème imprévu nous empêche de compléter votre requête.
+Veuillez contacter notre service de Soutien technique.</value>
+  </data>
+  <data name="DecodeUnit" xml:space="preserve">
+    <value>Impossible de trouver l'information suivante : l'unité des données</value>
+  </data>
+  <data name="DecodeUpload" xml:space="preserve">
+    <value>Impossible de trouver l'information suivante : Consommation en amont</value>
+  </data>
+  <data name="ClientDashboard_TheoryDailyCombined" xml:space="preserve">
+    <value>Consommation théorique quotidienne :</value>
+  </data>
+  <data name="ClientDashboard_TheoryCombined" xml:space="preserve">
+    <value>Consommation moyenne théorique quotidienne :</value>
+  </data>
+  <data name="ClientDashboard_TheoryCombinedDifference" xml:space="preserve">
+    <value>Écart entre la consommation théorique et courante :</value>
+  </data>
+  <data name="ClientDashboard_AverageCombined" xml:space="preserve">
+    <value>Consommation moyenne :</value>
+  </data>
+  <data name="ClientDashboard_EstimateCombined" xml:space="preserve">
+    <value>Consommation estimé :</value>
+  </data>
+  <data name="IA_USI60" xml:space="preserve">
+    <value>Internet TGV 60</value>
+  </data>
+  <data name="DisplayInfoTypes_EstimateUsage" xml:space="preserve">
+    <value>Consommation théorique</value>
+  </data>
+  <data name="ClientDashboard_TheoryCurrentUsage" xml:space="preserve">
+    <value>Consommation combinée théorique</value>
+  </data>
+  <data name="DisplayInfoTypes_AverageCombined" xml:space="preserve">
+    <value>Consommation moyenne</value>
+  </data>
+  <data name="DisplayInfoTypes_DayRemaining" xml:space="preserve">
+    <value>Temps restant avant la prochaine période</value>
+  </data>
+  <data name="DisplayInfoTypes_EstimateCombined" xml:space="preserve">
+    <value>Consommation estimée</value>
+  </data>
+  <data name="DisplayInfoTypes_EstimateTotalCombined" xml:space="preserve">
+    <value>Estimation de la consommation</value>
+  </data>
+  <data name="DisplayInfoTypes_Overcharge" xml:space="preserve">
+    <value>Frais de surcharge</value>
+  </data>
+  <data name="DisplayInfoTypes_SuggestCombined" xml:space="preserve">
+    <value>Consommation suggérée quotidienne</value>
+  </data>
+  <data name="DisplayInfoTypes_SuggestCombinedPercent" xml:space="preserve">
+    <value>Consommation suggérée quotidienne %</value>
+  </data>
+  <data name="DisplayInfoTypes_TheoryCombined" xml:space="preserve">
+    <value>Consommation combinée théorique</value>
+  </data>
+  <data name="DisplayInfoTypes_TheoryCombinedDifference" xml:space="preserve">
+    <value>Écart entre la consommation théorique et courante</value>
+  </data>
+  <data name="DisplayInfoTypes_TheoryDailyCombined" xml:space="preserve">
+    <value>Consommation théorique quotidienne</value>
+  </data>
+  <data name="DisplayInfoTypes_UploadDownloadGraph" xml:space="preserve">
+    <value>Graphique de l'amont et de l'aval</value>
+  </data>
+  <data name="DisplayInfoTypes_UsagePeriod" xml:space="preserve">
+    <value>Période de consommation</value>
+  </data>
+  <data name="Dashboard_miFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="Dashboard_miTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="AccountManager_lblToken" xml:space="preserve">
+    <value>Clé utilisateur</value>
+  </data>
+  <data name="Validation_Token" xml:space="preserve">
+    <value>Format invalide de la clé utilisateur</value>
+  </data>
+  <data name="Dashboard_TokenAlert" xml:space="preserve">
+    <value>Un ou plusieurs comptes actif n'ont pas de clé utilisateur.
+
+Depuis la version 3.6, CIV utilise l'API de Vidéotron pour obtenir vos informations de consommation.
+
+Voulez-vous les configurer maintenant?</value>
+  </data>
+  <data name="AccountManager_btnGetUsernameHint" xml:space="preserve">
+    <value>Obtenir les utilisateurs rattaché à la clé utilisateur</value>
+  </data>
+  <data name="AccountManager_TokenValidation" xml:space="preserve">
+    <value>Validation de la clé utilisateur</value>
+  </data>
+  <data name="AccountManager_btnTokenInfoHint" xml:space="preserve">
+    <value>Cliquez ici pour savoir comment obtenir votre clé utilisateur</value>
+  </data>
+  <data name="AccountManager_Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="AccountManager_NoUserToken" xml:space="preserve">
+    <value>Aucun utilisateur n'est associé à cette clé utilisateur</value>
+  </data>
+  <data name="AccountManager_SelectUsername" xml:space="preserve">
+    <value>Sélectionnez un nom d'utilisateur</value>
+  </data>
+  <data name="AccountManager_TokenChanged" xml:space="preserve">
+    <value>La clé utilisateur a changé, voulez-vous voir la liste des utilisateurs associés à cette clé?</value>
+  </data>
+  <data name="DisplayInfoTypes_CombinedGraph" xml:space="preserve">
+    <value>Graphique de la consommation combinée</value>
+  </data>
+  <data name="DisplayInfoTypes_HistoryGraph" xml:space="preserve">
+    <value>Graphique de la période courant</value>
+  </data>
+  <data name="GeneralSettings_btnDeleteElementHint" xml:space="preserve">
+    <value>Efface l'élément sélectionné de la vue</value>
+  </data>
+  <data name="GeneralSettings_btnResetElements" xml:space="preserve">
+    <value>Réinitialiser</value>
+  </data>
+  <data name="GeneralSettings_lblAvailableItems" xml:space="preserve">
+    <value>Éléments disponible</value>
+  </data>
+  <data name="GeneralSettings_lblDisplayItems" xml:space="preserve">
+    <value>Éléments affichés</value>
+  </data>
+  <data name="GeneralSettings_tabTemplate" xml:space="preserve">
+    <value>Thème</value>
+  </data>
+  <data name="AccountManager_ActivateAlert" xml:space="preserve">
+    <value>Activer l'alerte de consommation</value>
+  </data>
+  <data name="AccountManager_ActivateSendMail" xml:space="preserve">
+    <value>Activer la notification par courriel</value>
+  </data>
+  <data name="GeneralSettings_btnResetColors" xml:space="preserve">
+    <value>Réinitialiser</value>
+  </data>
+  <data name="AccountManager_txtNameHint" xml:space="preserve">
+    <value>Le nom qui va être utilisé pour identifier le compte dans le logiciel</value>
+  </data>
+  <data name="AccountManager_cbInternetAccessHint" xml:space="preserve">
+    <value>Sert seulement à calculer les frais de surchage.</value>
+  </data>
+  <data name="GeneralSettings_btnAddElementHint" xml:space="preserve">
+    <value>Ajoute l'élément sélectionné dans la vue</value>
+  </data>
+  <data name="DisplayInfoTypes_Combined" xml:space="preserve">
+    <value>Consommation combinée</value>
+  </data>
+  <data name="DisplayInfoTypes_CombinedPercent" xml:space="preserve">
+    <value>Consommation combinée %</value>
+  </data>
+  <data name="DisplayInfoTypes_Download" xml:space="preserve">
+    <value>Consommation de l'aval</value>
+  </data>
+  <data name="DisplayInfoTypes_DownloadPercent" xml:space="preserve">
+    <value>Consommation de l'aval %</value>
+  </data>
+  <data name="DisplayInfoTypes_Upload" xml:space="preserve">
+    <value>Consommation de l'amont</value>
+  </data>
+  <data name="DisplayInfoTypes_UploadPercent" xml:space="preserve">
+    <value>Consommation de l'amont %</value>
+  </data>
+  <data name="ClientDashboard_Combined" xml:space="preserve">
+    <value>Consommation combinée :</value>
+  </data>
+  <data name="ClientDashboard_CombinedOnTotal" xml:space="preserve">
+    <value>Consommation combinée :</value>
+  </data>
+  <data name="ClientDashboard_CombinedPercent" xml:space="preserve">
+    <value>Consommation combinée :</value>
+  </data>
+  <data name="ClientDashboard_Download" xml:space="preserve">
+    <value>Consommation de l'aval :</value>
+  </data>
+  <data name="ClientDashboard_DownloadPercent" xml:space="preserve">
+    <value>Consommation de l'aval :</value>
+  </data>
+  <data name="ClientDashboard_Upload" xml:space="preserve">
+    <value>Consommation de l'amont :</value>
+  </data>
+  <data name="ClientDashboard_UploadPercent" xml:space="preserve">
+    <value>Consommation de l'amont :</value>
+  </data>
+  <data name="DisplayInfoTypes_CombinedOnTotal" xml:space="preserve">
+    <value>Consommation combinée par rapport au total</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>sur</value>
+  </data>
+  <data name="GeneralSettings_lblSystray" xml:space="preserve">
+    <value>Zone de notification</value>
+  </data>
+  <data name="GeneralSettings_tabDisplaySystray" xml:space="preserve">
+    <value>Affichage zone de notification</value>
+  </data>
+  <data name="Dashboard_InternetAccessProgress" xml:space="preserve">
+    <value>Récupération des accès internets</value>
+  </data>
+  <data name="GeneralSettings_btnDownElementHint" xml:space="preserve">
+    <value>Déplace l'élément sélectionné vers le bas</value>
+  </data>
+  <data name="GeneralSettings_btnResetElementsHint" xml:space="preserve">
+    <value>Réinitialise la liste avec les éléments par défauts</value>
+  </data>
+  <data name="GeneralSettings_btnUpElementHint" xml:space="preserve">
+    <value>Déplace l'élément sélectionné vers le haut</value>
+  </data>
+  <data name="GeneralSettings_lblSaveDisplayPosition" xml:space="preserve">
+    <value>Sauvegarder la position de la fenêtre</value>
+  </data>
+  <data name="ClientDashboard_SuggestCombinedPercent" xml:space="preserve">
+    <value>Consommation suggérée quotidienne (%) :</value>
+  </data>
+  <data name="ClientDashboard_TheoryDailyCombinedPercent" xml:space="preserve">
+    <value>Consommation théorique quotidienne (%) :</value>
+  </data>
+  <data name="DisplayInfoTypes_TheoryDailyCombinedPercent" xml:space="preserve">
+    <value>Consommation théorique quotidienne %</value>
+  </data>
+  <data name="AccountManager_SystrayDisplay" xml:space="preserve">
+    <value>Afficher l'icône de consommation dans la barre système</value>
+  </data>
+  <data name="AccountManager_TabOther" xml:space="preserve">
+    <value>Divers</value>
+  </data>
+  <data name="GeneralSettings_ChkSystrayDisplay" xml:space="preserve">
+    <value>Afficher l'icône dans la barre la zone de notification</value>
+  </data>
+  <data name="AdvancedStats_Details_Day" xml:space="preserve">
+    <value>Jours</value>
+  </data>
+  <data name="AdvancedStats_Details_Download" xml:space="preserve">
+    <value>Aval</value>
+  </data>
+  <data name="AdvancedStats_Details_Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="AdvancedStats_Details_Upload" xml:space="preserve">
+    <value>Amont</value>
+  </data>
+</root>

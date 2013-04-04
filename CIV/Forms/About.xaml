@@ -1,0 +1,112 @@
+﻿<Window x:Class="CIV.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:civ="clr-namespace:CIV"
+        Icon="/CIV;component/Icons/Application.ico"
+        Height="Auto" Width="Auto" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Background="Black" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <civ:CIVResourceManager x:Key="CIVRes" />
+        <CollectionViewSource Source="{Binding Components}" x:Key="ComponentsView" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"  />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Image Grid.Column="0" Grid.Row="0" Source="/Images/AboutLogo.png" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" />
+
+        <Border Grid.Column="0" Grid.Row="1" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
+                    <TextBlock Text="Version :" />
+                    <TextBlock Name="lblVersion" Text="3.0.0.1" Style="{StaticResource DynamicData}" />
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.About_WebService}" Margin="30,0,0,0" />
+                    <TextBlock Name="lblCentralCenter" Text="" Style="{StaticResource DynamicData}" />
+                </StackPanel>
+
+                
+                <!--<Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="{Binding Source={StaticResource CIVRes},Path=Text.ApplicationTitle}" />-->
+
+                
+                <!--<Label Name="lblCentralCenter" Grid.Column="0" Grid.Row="3" Style="{StaticResource DynamicData}" />-->
+
+                <TextBlock Name="lblWebsite" Grid.Column="0" Grid.Row="2" Text="CodexMundus.com" Foreground="#FF00B5FF" Cursor="Hand" MouseLeftButtonUp="lblWebsite_MouseLeftButtonUp" />
+                <TextBlock Name="lblFacebook" Grid.Column="1" Grid.Row="2" Text="Facebook"  Foreground="#FF00B5FF" Cursor="Hand" MouseLeftButtonUp="lblFacebook_MouseLeftButtonUp" HorizontalAlignment="Center" />
+                <TextBlock Name="lblTwitter" Grid.Column="2" Grid.Row="2" Text="Twitter"  Foreground="#FF00B5FF" Cursor="Hand" MouseLeftButtonUp="lblTwitter_MouseLeftButtonUp" HorizontalAlignment="Right"/>
+
+                
+
+                <ListView Grid.ColumnSpan="3" Grid.Row="3" Margin="0,10,0,10" ItemsSource="{Binding Source={StaticResource ComponentsView}}" Height="110" IsTextSearchEnabled="False">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="250">
+                                <GridViewColumn.HeaderContainerStyle>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                    </Style>
+                                </GridViewColumn.HeaderContainerStyle>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.About_Components}" HorizontalAlignment="Left" Foreground="Black" />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Name}" HorizontalAlignment="Left" Foreground="Black" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="120">
+                                <GridViewColumn.HeaderContainerStyle>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                    </Style>
+                                </GridViewColumn.HeaderContainerStyle>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Version" HorizontalAlignment="Left" Foreground="Black" />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Version}" HorizontalAlignment="Left" Foreground="Black" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Button Grid.Column="2" Grid.Row="4" Name="btnClose" HorizontalAlignment="Right" Click="btnClose_Click" VerticalAlignment="Top">
+                    <Button.Content>
+                        <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.About_Close}" Style="{StaticResource ButtonContent}" />
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

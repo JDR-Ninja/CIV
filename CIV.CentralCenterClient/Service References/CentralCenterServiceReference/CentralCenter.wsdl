@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://codexmundus.net" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://codexmundus.net" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://codexmundus.net">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="IsCompatibleClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="version" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsCompatibleClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsCompatibleClientResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="element" type="tns:ReportBO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReportBO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Host" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Owner" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CivVersion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExceptionType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LogElementBOSerialized" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendReportResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetInternetAccess">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetInternetAccessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInternetAccessResult" type="tns:ArrayOfInternetAccessBO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInternetAccessBO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="InternetAccessBO" nillable="true" type="tns:InternetAccessBO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InternetAccessBO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameFr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameEn" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalCombined" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OverCharge" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxCost" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UploadSpeed" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="DownloadSpeed" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsLastVersion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="category" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="number" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsLastVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsLastVersionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastVersion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="category" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLastVersionResult" type="tns:ReleaseBO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReleaseBO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Release" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Size" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="History" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CRC" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendAnomaly">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="anomaly" type="tns:Anomaly" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Anomaly">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Owner" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Version" type="tns:CIVVersion" />
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Raw" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CIVVersion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Major" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Minor" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Build" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Revision" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendAnomalyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendAnomalyResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RunningVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="RunningVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RunningVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewInstallation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="owner" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="version" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewInstallationResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="InsertRelease">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="release" type="tns:ReleaseBO" />
+            <s:element minOccurs="0" maxOccurs="1" name="auth" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertReleaseResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="auth" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReportResult" type="tns:ReportBO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastReportId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="lastId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="auth" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastReportIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLastReportIdResult" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="IsCompatibleClientSoapIn">
+    <wsdl:part name="parameters" element="tns:IsCompatibleClient" />
+  </wsdl:message>
+  <wsdl:message name="IsCompatibleClientSoapOut">
+    <wsdl:part name="parameters" element="tns:IsCompatibleClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendReportSoapIn">
+    <wsdl:part name="parameters" element="tns:SendReport" />
+  </wsdl:message>
+  <wsdl:message name="SendReportSoapOut">
+    <wsdl:part name="parameters" element="tns:SendReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInternetAccessSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInternetAccess" />
+  </wsdl:message>
+  <wsdl:message name="GetInternetAccessSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInternetAccessResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsLastVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:IsLastVersion" />
+  </wsdl:message>
+  <wsdl:message name="IsLastVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:IsLastVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLastVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLastVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetLastVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLastVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendAnomalySoapIn">
+    <wsdl:part name="parameters" element="tns:SendAnomaly" />
+  </wsdl:message>
+  <wsdl:message name="SendAnomalySoapOut">
+    <wsdl:part name="parameters" element="tns:SendAnomalyResponse" />
+  </wsdl:message>
+  <wsdl:message name="RunningVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:RunningVersion" />
+  </wsdl:message>
+  <wsdl:message name="RunningVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:RunningVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewInstallationSoapIn">
+    <wsdl:part name="parameters" element="tns:NewInstallation" />
+  </wsdl:message>
+  <wsdl:message name="NewInstallationSoapOut">
+    <wsdl:part name="parameters" element="tns:NewInstallationResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertReleaseSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertRelease" />
+  </wsdl:message>
+  <wsdl:message name="InsertReleaseSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertReleaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReport" />
+  </wsdl:message>
+  <wsdl:message name="GetReportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLastReportIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLastReportId" />
+  </wsdl:message>
+  <wsdl:message name="GetLastReportIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLastReportIdResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CentralCenterSoap">
+    <wsdl:operation name="IsCompatibleClient">
+      <wsdl:input message="tns:IsCompatibleClientSoapIn" />
+      <wsdl:output message="tns:IsCompatibleClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendReport">
+      <wsdl:input message="tns:SendReportSoapIn" />
+      <wsdl:output message="tns:SendReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInternetAccess">
+      <wsdl:input message="tns:GetInternetAccessSoapIn" />
+      <wsdl:output message="tns:GetInternetAccessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsLastVersion">
+      <wsdl:input message="tns:IsLastVersionSoapIn" />
+      <wsdl:output message="tns:IsLastVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLastVersion">
+      <wsdl:input message="tns:GetLastVersionSoapIn" />
+      <wsdl:output message="tns:GetLastVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAnomaly">
+      <wsdl:input message="tns:SendAnomalySoapIn" />
+      <wsdl:output message="tns:SendAnomalySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RunningVersion">
+      <wsdl:input message="tns:RunningVersionSoapIn" />
+      <wsdl:output message="tns:RunningVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewInstallation">
+      <wsdl:input message="tns:NewInstallationSoapIn" />
+      <wsdl:output message="tns:NewInstallationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertRelease">
+      <wsdl:input message="tns:InsertReleaseSoapIn" />
+      <wsdl:output message="tns:InsertReleaseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReport">
+      <wsdl:input message="tns:GetReportSoapIn" />
+      <wsdl:output message="tns:GetReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLastReportId">
+      <wsdl:input message="tns:GetLastReportIdSoapIn" />
+      <wsdl:output message="tns:GetLastReportIdSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CentralCenterSoap" type="tns:CentralCenterSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsCompatibleClient">
+      <soap:operation soapAction="http://codexmundus.net/IsCompatibleClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReport">
+      <soap:operation soapAction="http://codexmundus.net/SendReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInternetAccess">
+      <soap:operation soapAction="http://codexmundus.net/GetInternetAccess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsLastVersion">
+      <soap:operation soapAction="http://codexmundus.net/IsLastVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastVersion">
+      <soap:operation soapAction="http://codexmundus.net/GetLastVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAnomaly">
+      <soap:operation soapAction="http://codexmundus.net/SendAnomaly" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunningVersion">
+      <soap:operation soapAction="http://codexmundus.net/RunningVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewInstallation">
+      <soap:operation soapAction="http://codexmundus.net/NewInstallation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertRelease">
+      <soap:operation soapAction="http://codexmundus.net/InsertRelease" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReport">
+      <soap:operation soapAction="http://codexmundus.net/GetReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastReportId">
+      <soap:operation soapAction="http://codexmundus.net/GetLastReportId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CentralCenterSoap12" type="tns:CentralCenterSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsCompatibleClient">
+      <soap12:operation soapAction="http://codexmundus.net/IsCompatibleClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReport">
+      <soap12:operation soapAction="http://codexmundus.net/SendReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInternetAccess">
+      <soap12:operation soapAction="http://codexmundus.net/GetInternetAccess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsLastVersion">
+      <soap12:operation soapAction="http://codexmundus.net/IsLastVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastVersion">
+      <soap12:operation soapAction="http://codexmundus.net/GetLastVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAnomaly">
+      <soap12:operation soapAction="http://codexmundus.net/SendAnomaly" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunningVersion">
+      <soap12:operation soapAction="http://codexmundus.net/RunningVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewInstallation">
+      <soap12:operation soapAction="http://codexmundus.net/NewInstallation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertRelease">
+      <soap12:operation soapAction="http://codexmundus.net/InsertRelease" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReport">
+      <soap12:operation soapAction="http://codexmundus.net/GetReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastReportId">
+      <soap12:operation soapAction="http://codexmundus.net/GetLastReportId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CentralCenter">
+    <wsdl:port name="CentralCenterSoap" binding="tns:CentralCenterSoap">
+      <soap:address location="http://codexmundus.net/centralcenter/CentralCenter.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CentralCenterSoap12" binding="tns:CentralCenterSoap12">
+      <soap12:address location="http://codexmundus.net/centralcenter/CentralCenter.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

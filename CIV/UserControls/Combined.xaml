@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="CIV.Combined"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:civ="clr-namespace:CIV" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <civ:CIVResourceManager x:Key="CIVRes" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal"  Margin="0, 10, 0, 0">
+            <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboard_CombinedTitle}" FontWeight="Bold" />
+            <TextBlock Padding="8, 0, 0, 0" Style="{StaticResource DynamicData}" Text="{Binding Path=Account.CombinedPercent, Converter={civ:DoubleConverter}, ConverterParameter=P, Mode=OneWay}" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboard_Usage}" />
+            <TextBlock Style="{StaticResource DynamicData}" Text="{Binding Path=Account.Combined, Converter={civ:SIUnitStringConverter}}" />
+            <TextBlock Style="{StaticResource DynamicData}" Text="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboard_CombinedQuantity}" />
+            <TextBlock Style="{StaticResource DynamicData}" Text="{Binding Path=Account.CombinedMaximum, Converter={civ:SIUnitStringConverter}}" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.ClientDashboard_Remaining}" />
+            <TextBlock Style="{StaticResource DynamicData}" Text="{Binding Path=Account.CombinedRemaining, Converter={civ:SIUnitStringConverter}}" />
+        </StackPanel>
+
+        <ProgressBar Name="pbCombined" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Height="10" Value="{Binding Path=Account.Combined,Mode=OneWay}" Maximum="{Binding Path=Account.CombinedMaximum,Mode=OneWay}" Style="{StaticResource pbCombinedStyle}" Margin="5" />
+    </Grid>
+</UserControl>

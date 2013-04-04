@@ -1,0 +1,400 @@
+﻿<Window x:Class="CIV.GeneralSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:civ="clr-namespace:CIV"
+        xmlns:civcommon="clr-namespace:CIV.Common;assembly=CIV.Common"
+        Icon="/CIV;component/Icons/Application.ico"
+        Height="410" Width="700" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" SizeToContent="Manual" Background="{StaticResource NormalBackground}">
+    <Window.Resources>
+        <civ:CIVResourceManager x:Key="CIVRes" />
+        <CollectionViewSource Source="{Binding DisplayInfoList}" x:Key="DisplayInfoListView" />
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="ApplicationCommandsHelp"/>
+    </Window.CommandBindings>
+
+    <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_tabGeneral}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblInterface}" Style="{StaticResource GroupBoxHeader}" />
+                    
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblShowDataUnit}" />
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblLanguages}" />
+
+                        <ComboBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Width="150" DisplayMemberPath="Value" ItemsSource="{civ:EnumValues civcommon:SIUnitTypes}" SelectedValuePath="Key"  SelectedValue="{Binding Path=ShowUnitType}" VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Width="150" DisplayMemberPath="Value" ItemsSource="{civ:EnumValues civcommon:SupportedLanguages}" SelectedValuePath="Key"  SelectedValue="{Binding Path=UserLanguage}" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblSystem}" Style="{StaticResource GroupBoxHeader}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                        </Grid.RowDefinitions>
+
+                        <CheckBox Grid.Column="0" Grid.Row="0" Content="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblLaunchAtStartup}" IsChecked="{Binding LaunchAtStartup}" />
+                        <CheckBox Grid.Column="0" Grid.Row="1" Content="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblLaunchMinimized}" IsChecked="{Binding LaunchMinimized}" />
+                        <CheckBox Grid.Column="0" Grid.Row="2" Content="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblAutoRefresh}" IsChecked="{Binding AutomaticClientUpdate}" />
+                        <CheckBox Grid.Column="0" Grid.Row="3" Content="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblAutomaticSendReport}" IsChecked="{Binding AutomaticSendReport}" />
+                        <CheckBox Grid.Column="0" Grid.Row="4" Content="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblAppAutoUpdate}" IsChecked="{Binding AppAutoUpdate}" />
+                        <CheckBox Grid.Column="0" Grid.Row="5" Content="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblSaveDisplayPosition}" IsChecked="{Binding SaveDisplayPosition}" />
+                        <CheckBox Grid.Column="0" Grid.Row="6" Content="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblMinimizeToTrayOnClose}" IsChecked="{Binding MinimizeToTrayOnClose}" />
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_tabEmail}">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox Content="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblSmtpActive}" IsChecked="{Binding EmailSMTP.Active}" />
+
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblConfiguration}" Style="{StaticResource GroupBoxHeader}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="116" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblSender}" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Name="txtSmtpSender" Width="180" Style="{StaticResource ValidationTextBox}" IsEnabled="{Binding EmailSMTP.Active}">
+                            <TextBox.Text>
+                                <Binding Path="EmailSMTP.Sender" UpdateSourceTrigger="PropertyChanged" >
+                                    <Binding.ValidationRules>
+                                        <civ:NotNullValidationRule>
+                                            <civ:NotNullValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                            </civ:NotNullValidationRule.Message>
+                                        </civ:NotNullValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblMail}" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Name="txtSmtpSenderMail" Width="180" Style="{StaticResource ValidationTextBox}" IsEnabled="{Binding EmailSMTP.Active}">
+                            <TextBox.Text>
+                                <Binding Path="EmailSMTP.SenderMail" UpdateSourceTrigger="PropertyChanged" >
+                                    <Binding.ValidationRules>
+                                        <civ:NotNullValidationRule>
+                                            <civ:NotNullValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                            </civ:NotNullValidationRule.Message>
+                                        </civ:NotNullValidationRule>
+                                        <civ:EmailValidationRule>
+                                            <civ:EmailValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_Email}" />
+                                            </civ:EmailValidationRule.Message>
+                                        </civ:EmailValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
+                    
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblHostSMTP}" Style="{StaticResource GroupBoxHeader}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="116" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblHost}" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Name="txtSmtpHost" Width="180" Style="{StaticResource ValidationTextBox}" IsEnabled="{Binding EmailSMTP.Active}">
+                            <TextBox.Text>
+                                <Binding Path="EmailSMTP.Host" UpdateSourceTrigger="PropertyChanged" >
+                                    <Binding.ValidationRules>
+                                        <civ:NotNullValidationRule>
+                                            <civ:NotNullValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                            </civ:NotNullValidationRule.Message>
+                                        </civ:NotNullValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblPort}" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Name="txtSmtpPort" Width="180" MaxLength="5" Style="{StaticResource ValidationTextBox}" IsEnabled="{Binding EmailSMTP.Active}" civ:Masking.Mask="^\d+$">
+                            <TextBox.Text>
+                                <Binding Path="EmailSMTP.Port" Converter="{civ:IntegerConverter}" UpdateSourceTrigger="PropertyChanged" >
+                                    <Binding.ValidationRules>
+                                        <civ:NotNullValidationRule>
+                                            <civ:NotNullValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                            </civ:NotNullValidationRule.Message>
+                                        </civ:NotNullValidationRule>
+                                        <civ:IntegerValidation>
+                                            <civ:IntegerValidation.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_Integer}" />
+                                            </civ:IntegerValidation.Message>
+                                        </civ:IntegerValidation>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblUser}" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Name="txtSmtpUsername" Width="180" Style="{StaticResource ValidationTextBox}" IsEnabled="{Binding EmailSMTP.Active}">
+                            <TextBox.Text>
+                                <Binding Path="EmailSMTP.Username" UpdateSourceTrigger="PropertyChanged" >
+                                    <Binding.ValidationRules>
+                                        <civ:NotNullValidationRule>
+                                            <civ:NotNullValidationRule.Message>
+                                                <civ:StringDependencyObject Value="{Binding Source={StaticResource CIVRes},Path=Text.Validation_NotNull}" />
+                                            </civ:NotNullValidationRule.Message>
+                                        </civ:NotNullValidationRule>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblPassword}" />
+                        <PasswordBox Grid.Column="1" Grid.Row="3" Width="180" civ:PasswordBoxExtension.Attach="True" civ:PasswordBoxExtension.Password="{Binding EmailSMTP.Password, Mode=TwoWay}" IsEnabled="{Binding EmailSMTP.Active}" />
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_tabDisplay}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblMainScreen}" Style="{StaticResource GroupBoxHeader}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblAvailableItems}" />
+                        <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblDisplayItems}" />
+
+                        <!--<ListBox Grid.Column="0" Grid.Row="1" Name="lbDisplayList" Height="200" Width="300" ItemsSource="{Binding Converter={civ:DisplayInfoTypesConverter}}" MouseDoubleClick="lbDisplayList_MouseDoubleClick" PreviewMouseLeftButtonDown="lbDisplayList_PreviewMouseLeftButtonDown" />-->
+                        <ListBox Grid.Column="0" Grid.Row="1" Name="lbDisplayList" Height="200" Width="300" ItemsSource="{Binding Converter={civ:DisplayInfoTypesConverter}}" MouseDoubleClick="lbDisplayList_MouseDoubleClick" />
+
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource ButtonIcon}" Name="btnAddElements" Click="btnAddElements_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnAddElementHint}">
+                                <Button.Content>
+                                    <Image Source="/CIV;component/Images/Arrow_right.png" Stretch="None" />
+                                </Button.Content>
+                            </Button>
+                            <Button Style="{StaticResource ButtonIcon}" Name="btnDeleteElements" Click="btnDeleteElements_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnDeleteElementHint}">
+                                <Button.Content>
+                                    <Image Source="/CIV;component/Images/Arrow_left.png" Stretch="None" />
+                                </Button.Content>
+                            </Button>
+                            <Button Margin="0,10,0,0" Style="{StaticResource ButtonIcon}" Name="btnUpElement" Click="btnUpElement_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnUpElementHint}">
+                                <Button.Content>
+                                    <Image Source="/CIV;component/Images/Arrow_up.png" Stretch="None" />
+                                </Button.Content>
+                            </Button>
+                            <Button Style="{StaticResource ButtonIcon}" Name="btnDownElement" Click="btnDownElement_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnDownElementHint}">
+                                <Button.Content>
+                                    <Image Source="/CIV;component/Images/Arrow_down.png" Stretch="None" />
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+
+                        <!--<ListBox Grid.Column="2" Grid.Row="1" Name="lblDisplayElement" Height="200" Width="300" ItemsSource="{Binding Path=Display, Converter={civ:DisplayInfoTypesConverter}}" MouseDoubleClick="lblDisplayElement_MouseDoubleClick" Drop="lblDisplayElement_Drop" AllowDrop="True" />-->
+                        <ListBox Grid.Column="2" Grid.Row="1" Name="lblDisplayElement" Height="200" Width="300" ItemsSource="{Binding Path=Display, Converter={civ:DisplayInfoTypesConverter}}" MouseDoubleClick="lblDisplayElement_MouseDoubleClick" />
+
+                        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal">
+                            <Button Name="btnResetElements" Click="btnResetElements_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnResetElementsHint}">
+                                <Button.Content>
+                                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnResetElements}" Style="{StaticResource ButtonContent}" />
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_tabDisplaySystray}" Name="tabSystray">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox Content="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_ChkSystrayDisplay}" IsChecked="{Binding SystrayDisplay}" />
+                    
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblSystray}" Style="{StaticResource GroupBoxHeader}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblAvailableItems}" />
+                        <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblDisplayItems}" />
+
+                        <ListBox Grid.Column="0" Grid.Row="1" Name="lbDisplayListSystray" Height="200" Width="300" ItemsSource="{Binding Converter={civ:DisplayInfoTypesConverter}}" MouseDoubleClick="lbDisplayListSystray_MouseDoubleClick" />
+
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource ButtonIcon}" Name="btnAddElementsSystray" Click="btnAddElementsSystray_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnAddElementHint}">
+                                <Button.Content>
+                                    <Image Source="/CIV;component/Images/Arrow_right.png" Stretch="None" />
+                                </Button.Content>
+                            </Button>
+                            <Button Style="{StaticResource ButtonIcon}" Name="btnDeleteElementsSystray" Click="btnDeleteElementsSystray_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnDeleteElementHint}">
+                                <Button.Content>
+                                    <Image Source="/CIV;component/Images/Arrow_left.png" Stretch="None" />
+                                </Button.Content>
+                            </Button>
+                            <Button Margin="0,10,0,0" Style="{StaticResource ButtonIcon}" Name="btnUpElementSystray" Click="btnUpElementSystray_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnUpElementHint}">
+                                <Button.Content>
+                                    <Image Source="/CIV;component/Images/Arrow_up.png" Stretch="None" />
+                                </Button.Content>
+                            </Button>
+                            <Button Style="{StaticResource ButtonIcon}" Name="btnDownElementSystray" Click="btnDownElementSystray_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnDownElementHint}">
+                                <Button.Content>
+                                    <Image Source="/CIV;component/Images/Arrow_down.png" Stretch="None" />
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+
+                        <ListBox Grid.Column="2" Grid.Row="1" Name="lblDisplayElementSystray" Height="200" Width="300" ItemsSource="{Binding Path=DisplaySystray, Converter={civ:DisplayInfoTypesConverter}}" MouseDoubleClick="lblDisplayElementSystray_MouseDoubleClick" />
+
+                        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal">
+                            <Button Name="btnResetElementsSystray" Click="btnResetElementsSystray_Click" ToolTip="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnResetElementsHint}">
+                                <Button.Content>
+                                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnResetElements}" Style="{StaticResource ButtonContent}" />
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_tabTemplate}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblColors}" Style="{StaticResource GroupBoxHeader}" />
+
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <Button Name="btnDisplayUploadColor" Grid.Column="1" Click="btnDisplayUploadColor_Click" Width="30" Margin="10,0" VerticalAlignment="Bottom">
+                            <Button.Content>
+                                <Image Source="/Images/ColorPicker.png" Width="16" Height="16" />
+                            </Button.Content>
+                        </Button>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblUpload}" />
+                        <Rectangle Grid.Column="2" Grid.Row="0" Width="50" Height="16" Fill="{Binding UploadColor, Converter={civ:ColorRGBConverter}}" HorizontalAlignment="Left" />
+
+                        <Button Name="btnDisplayDownloadColor" Grid.Column="1" Grid.Row="1" Click="btnDisplayDownloadColor_Click" Width="30">
+                            <Button.Content>
+                                <Image Source="/Images/ColorPicker.png" Width="16" Height="16" />
+                            </Button.Content>
+                        </Button>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblDownload}" />
+                        <Rectangle Grid.Column="2" Grid.Row="1" Width="50" Height="16" Fill="{Binding DownloadColor, Converter={civ:ColorRGBConverter}}" HorizontalAlignment="Left" />
+
+                        <Button Name="btnDisplayCombinedColor" Grid.Column="1" Grid.Row="2" Click="btnDisplayCombinedColor_Click" Width="30">
+                            <Button.Content>
+                                <Image Source="/Images/ColorPicker.png" Width="16" Height="16" />
+                            </Button.Content>
+                        </Button>
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_lblCombined}" />
+                        <Rectangle Grid.Column="2" Grid.Row="3" Width="50" Height="16" Fill="{Binding CombinedColor, Converter={civ:ColorRGBConverter}}" HorizontalAlignment="Left" />
+                    </Grid>
+                    <Button Grid.Column="0" Grid.Row="4" Name="btnResetColors" Click="btnResetColors_Click" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+                        <Button.Content>
+                            <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnResetColors}" Foreground="{StaticResource ButtonForeground}" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Name="btnOk" Click="btnOk_Click">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnOk}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding EmailSMTP.Active}" Value="false">
+                                <Setter Property="IsEnabled" Value="true" />
+                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding EmailSMTP.Active}" Value="true" />
+                                    <Condition Binding="{Binding ElementName=txtSmtpSender, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtSmtpSenderMail, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtSmtpHost, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtSmtpPort, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtSmtpUsername, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Name="btnCancel" Click="btnCancel_Click">
+                <Button.Content>
+                    <TextBlock Text="{Binding Source={StaticResource CIVRes},Path=Text.GeneralSettings_btnCancel}" Style="{StaticResource ButtonContent}" />
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>
